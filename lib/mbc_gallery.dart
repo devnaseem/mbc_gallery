@@ -10,6 +10,6 @@ import 'package:mbc_gallery/presentation/ui/widgets/gallery_list_widget.dart';
 
 import 'package:mbc_gallery/presentation/ui/widgets/nav_bar_widget.dart';
 import 'package:mbc_gallery/presentation/view_model/gallery_view_model.dart';
-import 'dart:html' as html;
+import 'platform_interop_utils/platform_utils.dart';
 
 part 'presentation/ui/gallery_screen.dart';

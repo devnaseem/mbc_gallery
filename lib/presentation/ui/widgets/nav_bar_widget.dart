@@ -13,7 +13,9 @@ class NavBarWidget extends StatelessWidget implements PreferredSizeWidget{
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
            InkWell(
-             onTap: onBackPressed,
+             onTap: (){
+               onBackPressed();
+             },
              child: const Row(
                children: [
                  Icon(Icons.arrow_back_ios, color: ColorConstants.primaryBrandColor, size: 20,),

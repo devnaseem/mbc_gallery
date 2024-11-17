@@ -6,6 +6,7 @@ import 'package:mbc_gallery/data/dto/gallery_list_response.dart';
 import 'package:mbc_gallery/data/repository/igallery_repository.dart';
 import 'package:mbc_gallery/domain/model/gallery_item_model.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:flutter/foundation.dart';
 part 'gallery_repository_impl.g.dart';
 
 @Riverpod(keepAlive: true)
@@ -26,23 +27,24 @@ class GalleryRepositoryImpl
     final galleryListResponse = await callApi<GalleryListResponse>(
             () => _galleryApiService.getGalleryMockData());
 
-    final galleryList = _mapToGalleryModel(
+    final galleryList = compute(mapToGalleryModel,
       galleryListResponse.gallery,
     );
     return galleryList;
   }
 
-  List<GalleryItemModel> _mapToGalleryModel(
-      List<Gallery> data,
-      ) {
-    final result = data
-        .map(
-          (e) => GalleryItemModel(
-        image: e.image,
-      ),
-    )
-        .toList();
+}
 
-    return result;
-  }
+List<GalleryItemModel> mapToGalleryModel(
+    List<Gallery> data,
+    ) {
+  final result = data
+      .map(
+        (e) => GalleryItemModel(
+      image: e.image,
+    ),
+  )
+      .toList();
+
+  return result;
 }

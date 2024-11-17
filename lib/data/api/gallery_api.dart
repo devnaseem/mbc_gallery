@@ -9,23 +9,14 @@ part 'gallery_api.g.dart';
 
 final galleryApiProvider = Provider<GalleryApi>((ref) {
   final dio = ref.watch(networkServiceProvider);
-
   return GalleryApi(dio);
 });
 
 @RestApi(
     parser: Parser.FlutterCompute,
-    baseUrl: "https://nascode-338705814149.asia-south2.run.app/api/v1/"
 )
 abstract class GalleryApi {
   factory GalleryApi(Dio dio) => _GalleryApi(dio);
-
-  // @GET('/clients/{clientId}/wellnessStatus')
-  // Future<List<WellnessListResponse>> getWellnessStatusList(
-  //   @Query('startDate') String startDate,
-  //   @Query('endDate') String endDate,
-  //   @Path('clientId') String clientId,
-  // );
 
   @GET('gallery')
   Future<GalleryListResponse> getGalleryMockData();

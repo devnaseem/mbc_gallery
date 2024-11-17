@@ -31,7 +31,7 @@ class _GalleryScreenState extends ConsumerState<GalleryScreen> {
         backgroundColor: Colors.white,
         appBar: kIsWeb? NavBarWidget(
             onBackPressed : (){
-              html.window.dispatchEvent(html.CustomEvent('back_pressed'));
+              dispatchBackPressedEvent();
             }
         ):  AppBar(
           backgroundColor: ColorConstants.primaryBrandColor,
