@@ -13,11 +13,11 @@ dependencies:
   mbc_common:
     git:
       url: https://github.com/devnaseem/mbc_common.git
-      ref: 50854ac1501dd483caba004a8f973901ca8ed596
+      ref: d4611c7fe3ba1971416246d650b81b280aeaa4db
   mbc_core:
     git:
       url: https://github.com/devnaseem/mbc_core.git
-      ref: 4b17ebb62ea88a40cc2cb98e94f2ef3772be02eb
+      ref: e4cfc80023b2e9b15dc07fa5f96451c0480474f2
   cached_network_image: ^3.4.1
   transparent_image: ^2.0.1
 
