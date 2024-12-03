@@ -18,19 +18,21 @@ Map<String, dynamic> serializeGalleryListResponse(
 @freezed
 class GalleryListResponse with _$GalleryListResponse {
   const factory GalleryListResponse({
-    @JsonKey(name: "gallery")
-    required List<Gallery> gallery,
+    @JsonKey(name: "galleryWithDate")
+    required List<GalleryWithDate> galleryWithDate,
   }) = _GalleryListResponse;
 
   factory GalleryListResponse.fromJson(Map<String, dynamic> json) => _$GalleryListResponseFromJson(json);
 }
 
 @freezed
-class Gallery with _$Gallery {
-  const factory Gallery({
-    @JsonKey(name: "image")
-    required String image,
-  }) = _Gallery;
+class GalleryWithDate with _$GalleryWithDate {
+  const factory GalleryWithDate({
+    @JsonKey(name: "date")
+    required DateTime date,
+    @JsonKey(name: "images")
+    required List<String> images,
+  }) = _GalleryWithDate;
 
-  factory Gallery.fromJson(Map<String, dynamic> json) => _$GalleryFromJson(json);
+  factory GalleryWithDate.fromJson(Map<String, dynamic> json) => _$GalleryWithDateFromJson(json);
 }

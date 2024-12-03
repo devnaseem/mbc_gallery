@@ -1,10 +1,7 @@
-// lib/main_web.dart (entry point for web)
-import 'dart:convert';
-import 'dart:html' as html;
-import 'package:js/js_util.dart' as js_util;
-
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'main_web_entry.dart';
 import 'mbc_gallery.dart';
 import 'package:go_router/go_router.dart';
 
@@ -48,24 +45,25 @@ class GalleryRootAppWeb extends ConsumerStatefulWidget {
   final Flavor env;
 
   const GalleryRootAppWeb({
-    super.key,
+    Key? key,
     required this.accessToken,
     required this.identityToken,
     required this.systemId,
     required this.env,
-  });
+  }) : super(key: key);
 
   @override
   _GalleryRootAppWebState createState() => _GalleryRootAppWebState();
 }
 
 class _GalleryRootAppWebState extends ConsumerState<GalleryRootAppWeb> {
-  late final GoRouter _router;
+  late final StreamSubscription<InitialConfig> _configSubscription;
+  late GoRouter _router;
+
   @override
   void initState() {
     super.initState();
 
-    // Initialize the router synchronously
     _router = GoRouter(
       routes: [
         GoRoute(
@@ -74,26 +72,42 @@ class _GalleryRootAppWebState extends ConsumerState<GalleryRootAppWeb> {
             systemId: widget.systemId ?? '0000662212',
           ),
         ),
-        // Add more routes if necessary
       ],
     );
 
-    // Set the flavor
-    ref.read(flavorProvider.notifier).state = widget.env;
+    // Initial setup for providers
+    _initializeProviders(widget.env, widget.accessToken, widget.identityToken);
 
-    // Store access token synchronously
-    ref
-        .read(tokenServiceProvider(ref.read(networkServiceProvider)))
-        .storeAccessToken(widget.accessToken!, "", widget.identityToken!);
+    // Listen to FlutterDataStore updates
+    _configSubscription = FlutterDataStore.instance.configStream.listen((config) {
+      setState(() {
+        // Update providers on config change
+        _initializeProviders(
+          _mapStringToFlavor(config.env),
+          config.accessToken,
+          config.identityToken,
+        );
+      });
+    });
   }
 
+  void _initializeProviders(Flavor flavor, String? accessToken, String? identityToken) {
+    ref.read(flavorProvider.notifier).state = flavor;
+    ref.read(tokenServiceProvider(ref.read(networkServiceProvider)))
+        .storeAccessToken(accessToken ?? '', "", identityToken ?? '');
+  }
+
+  @override
+  void dispose() {
+    _configSubscription.cancel();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp.router(
       routerConfig: _router,
       debugShowCheckedModeBanner: false,
-      // Initialize GoRouter
       localizationsDelegates: const [
         AppLocalizations.delegate,
         GlobalMaterialLocalizations.delegate,
@@ -104,14 +118,19 @@ class _GalleryRootAppWebState extends ConsumerState<GalleryRootAppWeb> {
         Locale('en', 'CA'),
         Locale('fr', 'CA'),
       ],
-      localeResolutionCallback: (locale, supportedLocales) {
-        for (var supportedLocale in supportedLocales) {
-          if (supportedLocale.languageCode == locale!.languageCode && supportedLocale.countryCode == locale.countryCode) {
-            return supportedLocale;
-          }
-        }
-        return supportedLocales.first;
-      },
     );
+  }
+
+  Flavor _mapStringToFlavor(String env) {
+    switch (env) {
+      case 'dev':
+        return Flavor.dev;
+      case 'staging':
+        return Flavor.staging;
+      case 'prod':
+        return Flavor.prod;
+      default:
+        return Flavor.dev;
+    }
   }
 }

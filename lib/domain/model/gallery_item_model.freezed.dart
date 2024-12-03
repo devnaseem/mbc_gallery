@@ -16,7 +16,9 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$GalleryItemModel {
-  String get image => throw _privateConstructorUsedError;
+  DateTime get date => throw _privateConstructorUsedError;
+  List<String> get images => throw _privateConstructorUsedError;
+  dynamic get required => throw _privateConstructorUsedError;
 
   /// Create a copy of GalleryItemModel
   /// with the given fields replaced by the non-null parameter values.
@@ -31,7 +33,7 @@ abstract class $GalleryItemModelCopyWith<$Res> {
           GalleryItemModel value, $Res Function(GalleryItemModel) then) =
       _$GalleryItemModelCopyWithImpl<$Res, GalleryItemModel>;
   @useResult
-  $Res call({String image});
+  $Res call({DateTime date, List<String> images, dynamic required});
 }
 
 /// @nodoc
@@ -49,13 +51,23 @@ class _$GalleryItemModelCopyWithImpl<$Res, $Val extends GalleryItemModel>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? image = null,
+    Object? date = null,
+    Object? images = null,
+    Object? required = freezed,
   }) {
     return _then(_value.copyWith(
-      image: null == image
-          ? _value.image
-          : image // ignore: cast_nullable_to_non_nullable
-              as String,
+      date: null == date
+          ? _value.date
+          : date // ignore: cast_nullable_to_non_nullable
+              as DateTime,
+      images: null == images
+          ? _value.images
+          : images // ignore: cast_nullable_to_non_nullable
+              as List<String>,
+      required: freezed == required
+          ? _value.required
+          : required // ignore: cast_nullable_to_non_nullable
+              as dynamic,
     ) as $Val);
   }
 }
@@ -68,7 +80,7 @@ abstract class _$$GalleryItemModelImplCopyWith<$Res>
       __$$GalleryItemModelImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String image});
+  $Res call({DateTime date, List<String> images, dynamic required});
 }
 
 /// @nodoc
@@ -84,13 +96,20 @@ class __$$GalleryItemModelImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? image = null,
+    Object? date = null,
+    Object? images = null,
+    Object? required = freezed,
   }) {
     return _then(_$GalleryItemModelImpl(
-      image: null == image
-          ? _value.image
-          : image // ignore: cast_nullable_to_non_nullable
-              as String,
+      date: null == date
+          ? _value.date
+          : date // ignore: cast_nullable_to_non_nullable
+              as DateTime,
+      images: null == images
+          ? _value._images
+          : images // ignore: cast_nullable_to_non_nullable
+              as List<String>,
+      required: freezed == required ? _value.required! : required,
     ));
   }
 }
@@ -98,14 +117,26 @@ class __$$GalleryItemModelImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$GalleryItemModelImpl implements _GalleryItemModel {
-  const _$GalleryItemModelImpl({required this.image});
+  const _$GalleryItemModelImpl(
+      {required this.date, required final List<String> images, this.required})
+      : _images = images;
 
   @override
-  final String image;
+  final DateTime date;
+  final List<String> _images;
+  @override
+  List<String> get images {
+    if (_images is EqualUnmodifiableListView) return _images;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_images);
+  }
+
+  @override
+  final dynamic required;
 
   @override
   String toString() {
-    return 'GalleryItemModel(image: $image)';
+    return 'GalleryItemModel(date: $date, images: $images, required: $required)';
   }
 
   @override
@@ -113,11 +144,17 @@ class _$GalleryItemModelImpl implements _GalleryItemModel {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$GalleryItemModelImpl &&
-            (identical(other.image, image) || other.image == image));
+            (identical(other.date, date) || other.date == date) &&
+            const DeepCollectionEquality().equals(other._images, _images) &&
+            const DeepCollectionEquality().equals(other.required, required));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, image);
+  int get hashCode => Object.hash(
+      runtimeType,
+      date,
+      const DeepCollectionEquality().hash(_images),
+      const DeepCollectionEquality().hash(required));
 
   /// Create a copy of GalleryItemModel
   /// with the given fields replaced by the non-null parameter values.
@@ -130,11 +167,17 @@ class _$GalleryItemModelImpl implements _GalleryItemModel {
 }
 
 abstract class _GalleryItemModel implements GalleryItemModel {
-  const factory _GalleryItemModel({required final String image}) =
-      _$GalleryItemModelImpl;
+  const factory _GalleryItemModel(
+      {required final DateTime date,
+      required final List<String> images,
+      final dynamic required}) = _$GalleryItemModelImpl;
 
   @override
-  String get image;
+  DateTime get date;
+  @override
+  List<String> get images;
+  @override
+  dynamic get required;
 
   /// Create a copy of GalleryItemModel
   /// with the given fields replaced by the non-null parameter values.

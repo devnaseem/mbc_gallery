@@ -6,6 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:mbc_common/mbc_common.dart';
 import 'package:go_router/go_router.dart';
+import 'package:mbc_gallery/presentation/ui/widgets/gallery_app_bar_widget.dart';
+import 'package:mbc_gallery/presentation/ui/widgets/gallery_full_Screen.dart';
 import 'package:mbc_gallery/presentation/ui/widgets/gallery_list_widget.dart';
 
 import 'package:mbc_gallery/presentation/ui/widgets/nav_bar_widget.dart';

@@ -9,23 +9,28 @@ part of 'gallery_list_response.dart';
 _$GalleryListResponseImpl _$$GalleryListResponseImplFromJson(
         Map<String, dynamic> json) =>
     _$GalleryListResponseImpl(
-      gallery: (json['gallery'] as List<dynamic>)
-          .map((e) => Gallery.fromJson(e as Map<String, dynamic>))
+      galleryWithDate: (json['galleryWithDate'] as List<dynamic>)
+          .map((e) => GalleryWithDate.fromJson(e as Map<String, dynamic>))
           .toList(),
     );
 
 Map<String, dynamic> _$$GalleryListResponseImplToJson(
         _$GalleryListResponseImpl instance) =>
     <String, dynamic>{
-      'gallery': instance.gallery,
+      'galleryWithDate': instance.galleryWithDate,
     };
 
-_$GalleryImpl _$$GalleryImplFromJson(Map<String, dynamic> json) =>
-    _$GalleryImpl(
-      image: json['image'] as String,
+_$GalleryWithDateImpl _$$GalleryWithDateImplFromJson(
+        Map<String, dynamic> json) =>
+    _$GalleryWithDateImpl(
+      date: DateTime.parse(json['date'] as String),
+      images:
+          (json['images'] as List<dynamic>).map((e) => e as String).toList(),
     );
 
-Map<String, dynamic> _$$GalleryImplToJson(_$GalleryImpl instance) =>
+Map<String, dynamic> _$$GalleryWithDateImplToJson(
+        _$GalleryWithDateImpl instance) =>
     <String, dynamic>{
-      'image': instance.image,
+      'date': instance.date.toIso8601String(),
+      'images': instance.images,
     };

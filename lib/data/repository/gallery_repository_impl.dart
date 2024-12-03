@@ -28,7 +28,7 @@ class GalleryRepositoryImpl
             () => _galleryApiService.getGalleryMockData());
 
     final galleryList = compute(mapToGalleryModel,
-      galleryListResponse.gallery,
+      galleryListResponse.galleryWithDate,
     );
     return galleryList;
   }
@@ -36,12 +36,13 @@ class GalleryRepositoryImpl
 }
 
 List<GalleryItemModel> mapToGalleryModel(
-    List<Gallery> data,
+    List<GalleryWithDate> data,
     ) {
   final result = data
       .map(
         (e) => GalleryItemModel(
-      image: e.image,
+          date: e.date,
+          images: e.images,
     ),
   )
       .toList();

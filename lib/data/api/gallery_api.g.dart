@@ -36,7 +36,7 @@ class _GalleryApi implements GalleryApi {
     )
         .compose(
           _dio.options,
-          'gallery',
+          'galleryWithDate',
           queryParameters: queryParameters,
           data: _data,
         )
