@@ -20,7 +20,7 @@ class GalleryWeb extends StatelessWidget {
 
   static InitialConfig getInitialConfig() {
     try {
-      // Use dart:js_util to access the global JS variable
+      // Use dart:js_util to access the global JS variable this is for inital data from angular
       final dynamic data = js_util.getProperty(html.window, 'flutterInitialData');
       if (data != null && data is Map) {
         // If data is a Map, convert it to InitialConfig
