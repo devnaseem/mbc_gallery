@@ -54,17 +54,30 @@ class _GalleryScreenState extends ConsumerState<GalleryScreen> {
               ),
         body: wellnessValue.when(
           loading: () => const GalleryLoadingWidget(),
-          data: (wellnessList) => GalleryListWidget(
-            wellnessList: wellnessList,
-            onTap: (String imageUrl) {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (_) => FullScreenImageView(imagePath: imageUrl),
-                ),
+          data: (wellnessList) {
+            final galleryList = GalleryListWidget(
+              wellnessList: wellnessList,
+              onTap: (String imageUrl) {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (_) => FullScreenImageView(imagePath: imageUrl),
+                  ),
+                );
+              },
+            );
+            if(kIsWeb && isLargeScreen(context)) {
+              return Row(
+                children: [
+                  Container(
+                    color: ColorConstants.primaryBrandColor,
+                    width: MediaQuery.of(context).size.width * 0.2,),
+                  Expanded(child: galleryList)
+                ],
               );
-            },
-          ),
+            }
+
+            return galleryList;},
           error: (error, stackTrace) => Text(error.toString()),
         ),
       ),

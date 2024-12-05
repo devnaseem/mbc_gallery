@@ -196,12 +196,12 @@ class _HoverableCardState extends State<HoverableCard> {
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(12.0),
                       child: SizedBox(
-                        height: widget.height-38,
+                        height: isLargeScreen(context) ? 300 : widget.height-38,
                         child: Hero(
                           tag: widget.galleryItem,
                           child: ImageWidget(
-                            width: isLargeScreen(context) ? 200 : 200,
-                            height: isLargeScreen(context) ? 200 : widget.height-38,
+                            width: isLargeScreen(context) ? 400 : 200,
+                            height: isLargeScreen(context) ? 300 : widget.height-38,
                             url: widget.galleryItem,
                             isCover: true,
                           ),
