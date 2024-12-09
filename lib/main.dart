@@ -38,7 +38,7 @@ class _GalleryRootAppState extends ConsumerState<GalleryRootApp> {
         GoRoute(
           path: '/',
           builder: (context, state) => const GalleryScreen(
-            systemId: '0000542211',
+            systemId: '',
           ),
         ),
         // Add more routes if necessary
@@ -46,12 +46,12 @@ class _GalleryRootAppState extends ConsumerState<GalleryRootApp> {
     );
 
     // Set the flavor
-    ref.read(flavorProvider.notifier).state = Flavor.dev;
+    //ref.read(flavorProvider.notifier).state = Flavor.dev;
 
     // Store access token synchronously
-    ref
-        .read(tokenServiceProvider(ref.read(networkServiceProvider)))
-        .storeAccessToken(accessToken, "", identityToken);
+   // ref
+     //   .read(tokenServiceProvider(ref.read(networkServiceProvider)))
+      //  .storeAccessToken(accessToken, "", identityToken);
   }
 
 

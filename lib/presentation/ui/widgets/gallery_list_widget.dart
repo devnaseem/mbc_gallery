@@ -149,7 +149,7 @@ class GalleryListWidget extends ConsumerWidget {
                 final itemHeight = getHeight(context); // Your custom function
 
                 return SizedBox(
-                  height: itemHeight+ (isDesktopScreen(context)? 150:38),
+                  height: itemHeight+ (isDesktopScreen(context)? 150:50),
                   child: HoverableCard(
                     galleryItem: photoItem,
                     onTap: onTap,
@@ -178,11 +178,11 @@ class GalleryListWidget extends ConsumerWidget {
   }*/
 
   double getHeight(BuildContext context) {
-    return isSmallScreen(context)? 155 :  200;
+    return isSmallScreen(context)? 145 :  200;
   }
 
   double getHorizontalPadding(BuildContext context){
-   return 10;
+   return 16;
   }
 }
 
@@ -226,7 +226,7 @@ class _HoverableCardState extends State<HoverableCard> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: widget.height+(isDesktopScreen(context)? 150:38),
+      height: widget.height+(isDesktopScreen(context)? 150:50),
       child: MouseRegion(
         onEnter: (_) => setState(() => isHovered = true),
         onExit: (_) => setState(() => isHovered = false),
@@ -248,16 +248,16 @@ class _HoverableCardState extends State<HoverableCard> {
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(12.0),
                     ),
-                    margin: const EdgeInsets.symmetric(horizontal: 8, vertical: 5),
+                    margin: const EdgeInsets.symmetric(horizontal: 4, vertical: 3),
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(12.0),
                       child: SizedBox(
-                        height: widget.height,
+                        height: widget.height- 8,
                         child: Hero(
                           tag: widget.galleryItem.photos[2].url,
                           child: ImageWidget(
-                            width:  widget.height,
-                            height:  widget.height,
+                            width:  widget.height -8,
+                            height:  widget.height -8 ,
                             url: widget.galleryItem.photos[0].url,
                             isCover: true,
                             id: widget.galleryItem.id,
@@ -266,7 +266,7 @@ class _HoverableCardState extends State<HoverableCard> {
                       ),
                     ),
                   ),
-                  const SizedBox(height: 8,),
+                  const SizedBox(height: 6,),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 12),
                     child: Row(
