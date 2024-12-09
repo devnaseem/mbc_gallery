@@ -4,35 +4,64 @@
 
 import 'package:freezed_annotation/freezed_annotation.dart';
 
+
 part 'gallery_list_response.freezed.dart';
 part 'gallery_list_response.g.dart';
 
-GalleryListResponse deserializeGalleryListResponse(Map<String, dynamic> json) =>
-    GalleryListResponse.fromJson(json);
+List<GalleryItemResponse> deserializeGalleryItemResponseList(List<Map<String, dynamic>> json) =>
+    json.map((e) => GalleryItemResponse.fromJson(e)).toList();
 
-Map<String, dynamic> serializeGalleryListResponse(
-    GalleryListResponse galleryListResponse,
-    ) =>
-    galleryListResponse.toJson();
+List<Map<String, dynamic>> serializeGalleryItemResponseList(List<GalleryItemResponse> objects) =>
+    objects.map((e) => e.toJson()).toList();
 
 @freezed
-class GalleryListResponse with _$GalleryListResponse {
-  const factory GalleryListResponse({
-    @JsonKey(name: "galleryWithDate")
-    required List<GalleryWithDate> galleryWithDate,
-  }) = _GalleryListResponse;
+class GalleryItemResponse with _$GalleryItemResponse {
+  const factory GalleryItemResponse({
+    @JsonKey(name: "id") required String id,
+    @JsonKey(name: "photos") required List<Photo> photos,
+    @JsonKey(name: "portrait") required bool portrait,
+    @JsonKey(name: "likes") required Map<String, LikeDetail> likes,
+    @JsonKey(name: "createdAt") required DateTime createdAt,
+  }) = _GalleryItemResponse;
 
-  factory GalleryListResponse.fromJson(Map<String, dynamic> json) => _$GalleryListResponseFromJson(json);
+  factory GalleryItemResponse.fromJson(Map<String, dynamic> json) => _$GalleryItemResponseFromJson(json);
 }
 
 @freezed
-class GalleryWithDate with _$GalleryWithDate {
-  const factory GalleryWithDate({
-    @JsonKey(name: "date")
-    required DateTime date,
-    @JsonKey(name: "images")
-    required List<String> images,
-  }) = _GalleryWithDate;
+class Photo with _$Photo {
+  const factory Photo({
+    @JsonKey(name: "url")
+    required String url,
+    @JsonKey(name: "resolution")
+    required Resolution resolution,
+  }) = _Photo;
 
-  factory GalleryWithDate.fromJson(Map<String, dynamic> json) => _$GalleryWithDateFromJson(json);
+  factory Photo.fromJson(Map<String, dynamic> json) => _$PhotoFromJson(json);
+}
+
+@freezed
+class Resolution with _$Resolution {
+  const factory Resolution({
+    @JsonKey(name: "quality")
+    required int quality,
+    @JsonKey(name: "zoom")
+    bool? zoom,
+    @JsonKey(name: "format")
+    required String format,
+    @JsonKey(name: "width")
+    int? width,
+    @JsonKey(name: "height")
+    int? height,
+  }) = _Resolution;
+
+  factory Resolution.fromJson(Map<String, dynamic> json) => _$ResolutionFromJson(json);
+}
+
+@freezed
+class LikeDetail with _$LikeDetail {
+  const factory LikeDetail({
+    @JsonKey(name: "likeAt") required DateTime likeAt,
+  }) = _LikeDetail;
+
+  factory LikeDetail.fromJson(Map<String, dynamic> json) => _$LikeDetailFromJson(json);
 }

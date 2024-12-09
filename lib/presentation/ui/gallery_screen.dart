@@ -9,6 +9,8 @@ class GalleryScreen extends ConsumerStatefulWidget {
 }
 
 class _GalleryScreenState extends ConsumerState<GalleryScreen> {
+  final ScrollController _scrollController = ScrollController();
+
   void _openFilterSheet(BuildContext context) {
     showModalBottomSheet(
       context: context,
@@ -28,11 +30,32 @@ class _GalleryScreenState extends ConsumerState<GalleryScreen> {
   @override
   void initState() {
     super.initState();
+    _scrollController.addListener(_scrollListener);
+
     WidgetsBinding.instance.addPostFrameCallback(
       (_) {
-        ref.read(galleryViewModelProvider.notifier).getGalleryImages();
+        ref.read(galleryViewModelProvider.notifier).getGalleryImages(widget.systemId);
       },
     );
+  }
+
+
+  @override
+  void dispose() {
+    _scrollController.dispose();
+    super.dispose();
+  }
+
+  void _scrollListener() {
+    if (_scrollController.position.extentAfter < 500) {
+      final viewModel = ref.read(galleryViewModelProvider.notifier);
+      final state = ref.read(galleryViewModelProvider);
+
+      if (!state.isLoadingMore && state.shouldLoadMore) {
+        int nextPage = state.currentPage + 1;
+        viewModel.getGalleryImages(widget.systemId,page: nextPage);
+      }
+    }
   }
 
   @override
@@ -56,7 +79,8 @@ class _GalleryScreenState extends ConsumerState<GalleryScreen> {
           loading: () => const GalleryLoadingWidget(),
           data: (wellnessList) {
             final galleryList = GalleryListWidget(
-              wellnessList: wellnessList,
+              galleryPhotosList: wellnessList,
+              scrollController: _scrollController,
               onTap: (String imageUrl) {
                 Navigator.push(
                   context,
@@ -66,7 +90,7 @@ class _GalleryScreenState extends ConsumerState<GalleryScreen> {
                 );
               },
             );
-            if(kIsWeb && isLargeScreen(context)) {
+            if(kIsWeb && isDesktopScreen(context)) {
               return Row(
                 children: [
                   Container(

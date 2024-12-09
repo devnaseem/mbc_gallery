@@ -14,361 +14,869 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
-GalleryListResponse _$GalleryListResponseFromJson(Map<String, dynamic> json) {
-  return _GalleryListResponse.fromJson(json);
+GalleryItemResponse _$GalleryItemResponseFromJson(Map<String, dynamic> json) {
+  return _GalleryItemResponse.fromJson(json);
 }
 
 /// @nodoc
-mixin _$GalleryListResponse {
-  @JsonKey(name: "galleryWithDate")
-  List<GalleryWithDate> get galleryWithDate =>
-      throw _privateConstructorUsedError;
+mixin _$GalleryItemResponse {
+  @JsonKey(name: "id")
+  String get id => throw _privateConstructorUsedError;
+  @JsonKey(name: "photos")
+  List<Photo> get photos => throw _privateConstructorUsedError;
+  @JsonKey(name: "portrait")
+  bool get portrait => throw _privateConstructorUsedError;
+  @JsonKey(name: "likes")
+  Map<String, LikeDetail> get likes => throw _privateConstructorUsedError;
+  @JsonKey(name: "createdAt")
+  DateTime get createdAt => throw _privateConstructorUsedError;
 
-  /// Serializes this GalleryListResponse to a JSON map.
+  /// Serializes this GalleryItemResponse to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
 
-  /// Create a copy of GalleryListResponse
+  /// Create a copy of GalleryItemResponse
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
-  $GalleryListResponseCopyWith<GalleryListResponse> get copyWith =>
+  $GalleryItemResponseCopyWith<GalleryItemResponse> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $GalleryListResponseCopyWith<$Res> {
-  factory $GalleryListResponseCopyWith(
-          GalleryListResponse value, $Res Function(GalleryListResponse) then) =
-      _$GalleryListResponseCopyWithImpl<$Res, GalleryListResponse>;
+abstract class $GalleryItemResponseCopyWith<$Res> {
+  factory $GalleryItemResponseCopyWith(
+          GalleryItemResponse value, $Res Function(GalleryItemResponse) then) =
+      _$GalleryItemResponseCopyWithImpl<$Res, GalleryItemResponse>;
   @useResult
   $Res call(
-      {@JsonKey(name: "galleryWithDate")
-      List<GalleryWithDate> galleryWithDate});
+      {@JsonKey(name: "id") String id,
+      @JsonKey(name: "photos") List<Photo> photos,
+      @JsonKey(name: "portrait") bool portrait,
+      @JsonKey(name: "likes") Map<String, LikeDetail> likes,
+      @JsonKey(name: "createdAt") DateTime createdAt});
 }
 
 /// @nodoc
-class _$GalleryListResponseCopyWithImpl<$Res, $Val extends GalleryListResponse>
-    implements $GalleryListResponseCopyWith<$Res> {
-  _$GalleryListResponseCopyWithImpl(this._value, this._then);
+class _$GalleryItemResponseCopyWithImpl<$Res, $Val extends GalleryItemResponse>
+    implements $GalleryItemResponseCopyWith<$Res> {
+  _$GalleryItemResponseCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
 
-  /// Create a copy of GalleryListResponse
+  /// Create a copy of GalleryItemResponse
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? galleryWithDate = null,
+    Object? id = null,
+    Object? photos = null,
+    Object? portrait = null,
+    Object? likes = null,
+    Object? createdAt = null,
   }) {
     return _then(_value.copyWith(
-      galleryWithDate: null == galleryWithDate
-          ? _value.galleryWithDate
-          : galleryWithDate // ignore: cast_nullable_to_non_nullable
-              as List<GalleryWithDate>,
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as String,
+      photos: null == photos
+          ? _value.photos
+          : photos // ignore: cast_nullable_to_non_nullable
+              as List<Photo>,
+      portrait: null == portrait
+          ? _value.portrait
+          : portrait // ignore: cast_nullable_to_non_nullable
+              as bool,
+      likes: null == likes
+          ? _value.likes
+          : likes // ignore: cast_nullable_to_non_nullable
+              as Map<String, LikeDetail>,
+      createdAt: null == createdAt
+          ? _value.createdAt
+          : createdAt // ignore: cast_nullable_to_non_nullable
+              as DateTime,
     ) as $Val);
   }
 }
 
 /// @nodoc
-abstract class _$$GalleryListResponseImplCopyWith<$Res>
-    implements $GalleryListResponseCopyWith<$Res> {
-  factory _$$GalleryListResponseImplCopyWith(_$GalleryListResponseImpl value,
-          $Res Function(_$GalleryListResponseImpl) then) =
-      __$$GalleryListResponseImplCopyWithImpl<$Res>;
+abstract class _$$GalleryItemResponseImplCopyWith<$Res>
+    implements $GalleryItemResponseCopyWith<$Res> {
+  factory _$$GalleryItemResponseImplCopyWith(_$GalleryItemResponseImpl value,
+          $Res Function(_$GalleryItemResponseImpl) then) =
+      __$$GalleryItemResponseImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
-      {@JsonKey(name: "galleryWithDate")
-      List<GalleryWithDate> galleryWithDate});
+      {@JsonKey(name: "id") String id,
+      @JsonKey(name: "photos") List<Photo> photos,
+      @JsonKey(name: "portrait") bool portrait,
+      @JsonKey(name: "likes") Map<String, LikeDetail> likes,
+      @JsonKey(name: "createdAt") DateTime createdAt});
 }
 
 /// @nodoc
-class __$$GalleryListResponseImplCopyWithImpl<$Res>
-    extends _$GalleryListResponseCopyWithImpl<$Res, _$GalleryListResponseImpl>
-    implements _$$GalleryListResponseImplCopyWith<$Res> {
-  __$$GalleryListResponseImplCopyWithImpl(_$GalleryListResponseImpl _value,
-      $Res Function(_$GalleryListResponseImpl) _then)
+class __$$GalleryItemResponseImplCopyWithImpl<$Res>
+    extends _$GalleryItemResponseCopyWithImpl<$Res, _$GalleryItemResponseImpl>
+    implements _$$GalleryItemResponseImplCopyWith<$Res> {
+  __$$GalleryItemResponseImplCopyWithImpl(_$GalleryItemResponseImpl _value,
+      $Res Function(_$GalleryItemResponseImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of GalleryListResponse
+  /// Create a copy of GalleryItemResponse
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? galleryWithDate = null,
+    Object? id = null,
+    Object? photos = null,
+    Object? portrait = null,
+    Object? likes = null,
+    Object? createdAt = null,
   }) {
-    return _then(_$GalleryListResponseImpl(
-      galleryWithDate: null == galleryWithDate
-          ? _value._galleryWithDate
-          : galleryWithDate // ignore: cast_nullable_to_non_nullable
-              as List<GalleryWithDate>,
+    return _then(_$GalleryItemResponseImpl(
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as String,
+      photos: null == photos
+          ? _value._photos
+          : photos // ignore: cast_nullable_to_non_nullable
+              as List<Photo>,
+      portrait: null == portrait
+          ? _value.portrait
+          : portrait // ignore: cast_nullable_to_non_nullable
+              as bool,
+      likes: null == likes
+          ? _value._likes
+          : likes // ignore: cast_nullable_to_non_nullable
+              as Map<String, LikeDetail>,
+      createdAt: null == createdAt
+          ? _value.createdAt
+          : createdAt // ignore: cast_nullable_to_non_nullable
+              as DateTime,
     ));
   }
 }
 
 /// @nodoc
 @JsonSerializable()
-class _$GalleryListResponseImpl implements _GalleryListResponse {
-  const _$GalleryListResponseImpl(
-      {@JsonKey(name: "galleryWithDate")
-      required final List<GalleryWithDate> galleryWithDate})
-      : _galleryWithDate = galleryWithDate;
+class _$GalleryItemResponseImpl implements _GalleryItemResponse {
+  const _$GalleryItemResponseImpl(
+      {@JsonKey(name: "id") required this.id,
+      @JsonKey(name: "photos") required final List<Photo> photos,
+      @JsonKey(name: "portrait") required this.portrait,
+      @JsonKey(name: "likes") required final Map<String, LikeDetail> likes,
+      @JsonKey(name: "createdAt") required this.createdAt})
+      : _photos = photos,
+        _likes = likes;
 
-  factory _$GalleryListResponseImpl.fromJson(Map<String, dynamic> json) =>
-      _$$GalleryListResponseImplFromJson(json);
+  factory _$GalleryItemResponseImpl.fromJson(Map<String, dynamic> json) =>
+      _$$GalleryItemResponseImplFromJson(json);
 
-  final List<GalleryWithDate> _galleryWithDate;
   @override
-  @JsonKey(name: "galleryWithDate")
-  List<GalleryWithDate> get galleryWithDate {
-    if (_galleryWithDate is EqualUnmodifiableListView) return _galleryWithDate;
+  @JsonKey(name: "id")
+  final String id;
+  final List<Photo> _photos;
+  @override
+  @JsonKey(name: "photos")
+  List<Photo> get photos {
+    if (_photos is EqualUnmodifiableListView) return _photos;
     // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_galleryWithDate);
+    return EqualUnmodifiableListView(_photos);
   }
 
   @override
+  @JsonKey(name: "portrait")
+  final bool portrait;
+  final Map<String, LikeDetail> _likes;
+  @override
+  @JsonKey(name: "likes")
+  Map<String, LikeDetail> get likes {
+    if (_likes is EqualUnmodifiableMapView) return _likes;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableMapView(_likes);
+  }
+
+  @override
+  @JsonKey(name: "createdAt")
+  final DateTime createdAt;
+
+  @override
   String toString() {
-    return 'GalleryListResponse(galleryWithDate: $galleryWithDate)';
+    return 'GalleryItemResponse(id: $id, photos: $photos, portrait: $portrait, likes: $likes, createdAt: $createdAt)';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$GalleryListResponseImpl &&
-            const DeepCollectionEquality()
-                .equals(other._galleryWithDate, _galleryWithDate));
+            other is _$GalleryItemResponseImpl &&
+            (identical(other.id, id) || other.id == id) &&
+            const DeepCollectionEquality().equals(other._photos, _photos) &&
+            (identical(other.portrait, portrait) ||
+                other.portrait == portrait) &&
+            const DeepCollectionEquality().equals(other._likes, _likes) &&
+            (identical(other.createdAt, createdAt) ||
+                other.createdAt == createdAt));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(
-      runtimeType, const DeepCollectionEquality().hash(_galleryWithDate));
+      runtimeType,
+      id,
+      const DeepCollectionEquality().hash(_photos),
+      portrait,
+      const DeepCollectionEquality().hash(_likes),
+      createdAt);
 
-  /// Create a copy of GalleryListResponse
+  /// Create a copy of GalleryItemResponse
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
-  _$$GalleryListResponseImplCopyWith<_$GalleryListResponseImpl> get copyWith =>
-      __$$GalleryListResponseImplCopyWithImpl<_$GalleryListResponseImpl>(
+  _$$GalleryItemResponseImplCopyWith<_$GalleryItemResponseImpl> get copyWith =>
+      __$$GalleryItemResponseImplCopyWithImpl<_$GalleryItemResponseImpl>(
           this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$GalleryListResponseImplToJson(
+    return _$$GalleryItemResponseImplToJson(
       this,
     );
   }
 }
 
-abstract class _GalleryListResponse implements GalleryListResponse {
-  const factory _GalleryListResponse(
-          {@JsonKey(name: "galleryWithDate")
-          required final List<GalleryWithDate> galleryWithDate}) =
-      _$GalleryListResponseImpl;
+abstract class _GalleryItemResponse implements GalleryItemResponse {
+  const factory _GalleryItemResponse(
+          {@JsonKey(name: "id") required final String id,
+          @JsonKey(name: "photos") required final List<Photo> photos,
+          @JsonKey(name: "portrait") required final bool portrait,
+          @JsonKey(name: "likes") required final Map<String, LikeDetail> likes,
+          @JsonKey(name: "createdAt") required final DateTime createdAt}) =
+      _$GalleryItemResponseImpl;
 
-  factory _GalleryListResponse.fromJson(Map<String, dynamic> json) =
-      _$GalleryListResponseImpl.fromJson;
+  factory _GalleryItemResponse.fromJson(Map<String, dynamic> json) =
+      _$GalleryItemResponseImpl.fromJson;
 
   @override
-  @JsonKey(name: "galleryWithDate")
-  List<GalleryWithDate> get galleryWithDate;
+  @JsonKey(name: "id")
+  String get id;
+  @override
+  @JsonKey(name: "photos")
+  List<Photo> get photos;
+  @override
+  @JsonKey(name: "portrait")
+  bool get portrait;
+  @override
+  @JsonKey(name: "likes")
+  Map<String, LikeDetail> get likes;
+  @override
+  @JsonKey(name: "createdAt")
+  DateTime get createdAt;
 
-  /// Create a copy of GalleryListResponse
+  /// Create a copy of GalleryItemResponse
   /// with the given fields replaced by the non-null parameter values.
   @override
   @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$GalleryListResponseImplCopyWith<_$GalleryListResponseImpl> get copyWith =>
+  _$$GalleryItemResponseImplCopyWith<_$GalleryItemResponseImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
-GalleryWithDate _$GalleryWithDateFromJson(Map<String, dynamic> json) {
-  return _GalleryWithDate.fromJson(json);
+Photo _$PhotoFromJson(Map<String, dynamic> json) {
+  return _Photo.fromJson(json);
 }
 
 /// @nodoc
-mixin _$GalleryWithDate {
-  @JsonKey(name: "date")
-  DateTime get date => throw _privateConstructorUsedError;
-  @JsonKey(name: "images")
-  List<String> get images => throw _privateConstructorUsedError;
+mixin _$Photo {
+  @JsonKey(name: "url")
+  String get url => throw _privateConstructorUsedError;
+  @JsonKey(name: "resolution")
+  Resolution get resolution => throw _privateConstructorUsedError;
 
-  /// Serializes this GalleryWithDate to a JSON map.
+  /// Serializes this Photo to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
 
-  /// Create a copy of GalleryWithDate
+  /// Create a copy of Photo
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
-  $GalleryWithDateCopyWith<GalleryWithDate> get copyWith =>
-      throw _privateConstructorUsedError;
+  $PhotoCopyWith<Photo> get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $GalleryWithDateCopyWith<$Res> {
-  factory $GalleryWithDateCopyWith(
-          GalleryWithDate value, $Res Function(GalleryWithDate) then) =
-      _$GalleryWithDateCopyWithImpl<$Res, GalleryWithDate>;
+abstract class $PhotoCopyWith<$Res> {
+  factory $PhotoCopyWith(Photo value, $Res Function(Photo) then) =
+      _$PhotoCopyWithImpl<$Res, Photo>;
   @useResult
   $Res call(
-      {@JsonKey(name: "date") DateTime date,
-      @JsonKey(name: "images") List<String> images});
+      {@JsonKey(name: "url") String url,
+      @JsonKey(name: "resolution") Resolution resolution});
+
+  $ResolutionCopyWith<$Res> get resolution;
 }
 
 /// @nodoc
-class _$GalleryWithDateCopyWithImpl<$Res, $Val extends GalleryWithDate>
-    implements $GalleryWithDateCopyWith<$Res> {
-  _$GalleryWithDateCopyWithImpl(this._value, this._then);
+class _$PhotoCopyWithImpl<$Res, $Val extends Photo>
+    implements $PhotoCopyWith<$Res> {
+  _$PhotoCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
 
-  /// Create a copy of GalleryWithDate
+  /// Create a copy of Photo
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? date = null,
-    Object? images = null,
+    Object? url = null,
+    Object? resolution = null,
   }) {
     return _then(_value.copyWith(
-      date: null == date
-          ? _value.date
-          : date // ignore: cast_nullable_to_non_nullable
-              as DateTime,
-      images: null == images
-          ? _value.images
-          : images // ignore: cast_nullable_to_non_nullable
-              as List<String>,
+      url: null == url
+          ? _value.url
+          : url // ignore: cast_nullable_to_non_nullable
+              as String,
+      resolution: null == resolution
+          ? _value.resolution
+          : resolution // ignore: cast_nullable_to_non_nullable
+              as Resolution,
     ) as $Val);
+  }
+
+  /// Create a copy of Photo
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $ResolutionCopyWith<$Res> get resolution {
+    return $ResolutionCopyWith<$Res>(_value.resolution, (value) {
+      return _then(_value.copyWith(resolution: value) as $Val);
+    });
   }
 }
 
 /// @nodoc
-abstract class _$$GalleryWithDateImplCopyWith<$Res>
-    implements $GalleryWithDateCopyWith<$Res> {
-  factory _$$GalleryWithDateImplCopyWith(_$GalleryWithDateImpl value,
-          $Res Function(_$GalleryWithDateImpl) then) =
-      __$$GalleryWithDateImplCopyWithImpl<$Res>;
+abstract class _$$PhotoImplCopyWith<$Res> implements $PhotoCopyWith<$Res> {
+  factory _$$PhotoImplCopyWith(
+          _$PhotoImpl value, $Res Function(_$PhotoImpl) then) =
+      __$$PhotoImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
-      {@JsonKey(name: "date") DateTime date,
-      @JsonKey(name: "images") List<String> images});
+      {@JsonKey(name: "url") String url,
+      @JsonKey(name: "resolution") Resolution resolution});
+
+  @override
+  $ResolutionCopyWith<$Res> get resolution;
 }
 
 /// @nodoc
-class __$$GalleryWithDateImplCopyWithImpl<$Res>
-    extends _$GalleryWithDateCopyWithImpl<$Res, _$GalleryWithDateImpl>
-    implements _$$GalleryWithDateImplCopyWith<$Res> {
-  __$$GalleryWithDateImplCopyWithImpl(
-      _$GalleryWithDateImpl _value, $Res Function(_$GalleryWithDateImpl) _then)
+class __$$PhotoImplCopyWithImpl<$Res>
+    extends _$PhotoCopyWithImpl<$Res, _$PhotoImpl>
+    implements _$$PhotoImplCopyWith<$Res> {
+  __$$PhotoImplCopyWithImpl(
+      _$PhotoImpl _value, $Res Function(_$PhotoImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of GalleryWithDate
+  /// Create a copy of Photo
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? date = null,
-    Object? images = null,
+    Object? url = null,
+    Object? resolution = null,
   }) {
-    return _then(_$GalleryWithDateImpl(
-      date: null == date
-          ? _value.date
-          : date // ignore: cast_nullable_to_non_nullable
-              as DateTime,
-      images: null == images
-          ? _value._images
-          : images // ignore: cast_nullable_to_non_nullable
-              as List<String>,
+    return _then(_$PhotoImpl(
+      url: null == url
+          ? _value.url
+          : url // ignore: cast_nullable_to_non_nullable
+              as String,
+      resolution: null == resolution
+          ? _value.resolution
+          : resolution // ignore: cast_nullable_to_non_nullable
+              as Resolution,
     ));
   }
 }
 
 /// @nodoc
 @JsonSerializable()
-class _$GalleryWithDateImpl implements _GalleryWithDate {
-  const _$GalleryWithDateImpl(
-      {@JsonKey(name: "date") required this.date,
-      @JsonKey(name: "images") required final List<String> images})
-      : _images = images;
+class _$PhotoImpl implements _Photo {
+  const _$PhotoImpl(
+      {@JsonKey(name: "url") required this.url,
+      @JsonKey(name: "resolution") required this.resolution});
 
-  factory _$GalleryWithDateImpl.fromJson(Map<String, dynamic> json) =>
-      _$$GalleryWithDateImplFromJson(json);
+  factory _$PhotoImpl.fromJson(Map<String, dynamic> json) =>
+      _$$PhotoImplFromJson(json);
 
   @override
-  @JsonKey(name: "date")
-  final DateTime date;
-  final List<String> _images;
+  @JsonKey(name: "url")
+  final String url;
   @override
-  @JsonKey(name: "images")
-  List<String> get images {
-    if (_images is EqualUnmodifiableListView) return _images;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_images);
-  }
+  @JsonKey(name: "resolution")
+  final Resolution resolution;
 
   @override
   String toString() {
-    return 'GalleryWithDate(date: $date, images: $images)';
+    return 'Photo(url: $url, resolution: $resolution)';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$GalleryWithDateImpl &&
-            (identical(other.date, date) || other.date == date) &&
-            const DeepCollectionEquality().equals(other._images, _images));
+            other is _$PhotoImpl &&
+            (identical(other.url, url) || other.url == url) &&
+            (identical(other.resolution, resolution) ||
+                other.resolution == resolution));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(
-      runtimeType, date, const DeepCollectionEquality().hash(_images));
+  int get hashCode => Object.hash(runtimeType, url, resolution);
 
-  /// Create a copy of GalleryWithDate
+  /// Create a copy of Photo
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
-  _$$GalleryWithDateImplCopyWith<_$GalleryWithDateImpl> get copyWith =>
-      __$$GalleryWithDateImplCopyWithImpl<_$GalleryWithDateImpl>(
-          this, _$identity);
+  _$$PhotoImplCopyWith<_$PhotoImpl> get copyWith =>
+      __$$PhotoImplCopyWithImpl<_$PhotoImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$GalleryWithDateImplToJson(
+    return _$$PhotoImplToJson(
       this,
     );
   }
 }
 
-abstract class _GalleryWithDate implements GalleryWithDate {
-  const factory _GalleryWithDate(
-          {@JsonKey(name: "date") required final DateTime date,
-          @JsonKey(name: "images") required final List<String> images}) =
-      _$GalleryWithDateImpl;
+abstract class _Photo implements Photo {
+  const factory _Photo(
+          {@JsonKey(name: "url") required final String url,
+          @JsonKey(name: "resolution") required final Resolution resolution}) =
+      _$PhotoImpl;
 
-  factory _GalleryWithDate.fromJson(Map<String, dynamic> json) =
-      _$GalleryWithDateImpl.fromJson;
+  factory _Photo.fromJson(Map<String, dynamic> json) = _$PhotoImpl.fromJson;
 
   @override
-  @JsonKey(name: "date")
-  DateTime get date;
+  @JsonKey(name: "url")
+  String get url;
   @override
-  @JsonKey(name: "images")
-  List<String> get images;
+  @JsonKey(name: "resolution")
+  Resolution get resolution;
 
-  /// Create a copy of GalleryWithDate
+  /// Create a copy of Photo
   /// with the given fields replaced by the non-null parameter values.
   @override
   @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$GalleryWithDateImplCopyWith<_$GalleryWithDateImpl> get copyWith =>
+  _$$PhotoImplCopyWith<_$PhotoImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+Resolution _$ResolutionFromJson(Map<String, dynamic> json) {
+  return _Resolution.fromJson(json);
+}
+
+/// @nodoc
+mixin _$Resolution {
+  @JsonKey(name: "quality")
+  int get quality => throw _privateConstructorUsedError;
+  @JsonKey(name: "zoom")
+  bool? get zoom => throw _privateConstructorUsedError;
+  @JsonKey(name: "format")
+  String get format => throw _privateConstructorUsedError;
+  @JsonKey(name: "width")
+  int? get width => throw _privateConstructorUsedError;
+  @JsonKey(name: "height")
+  int? get height => throw _privateConstructorUsedError;
+
+  /// Serializes this Resolution to a JSON map.
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+
+  /// Create a copy of Resolution
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  $ResolutionCopyWith<Resolution> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $ResolutionCopyWith<$Res> {
+  factory $ResolutionCopyWith(
+          Resolution value, $Res Function(Resolution) then) =
+      _$ResolutionCopyWithImpl<$Res, Resolution>;
+  @useResult
+  $Res call(
+      {@JsonKey(name: "quality") int quality,
+      @JsonKey(name: "zoom") bool? zoom,
+      @JsonKey(name: "format") String format,
+      @JsonKey(name: "width") int? width,
+      @JsonKey(name: "height") int? height});
+}
+
+/// @nodoc
+class _$ResolutionCopyWithImpl<$Res, $Val extends Resolution>
+    implements $ResolutionCopyWith<$Res> {
+  _$ResolutionCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  /// Create a copy of Resolution
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? quality = null,
+    Object? zoom = freezed,
+    Object? format = null,
+    Object? width = freezed,
+    Object? height = freezed,
+  }) {
+    return _then(_value.copyWith(
+      quality: null == quality
+          ? _value.quality
+          : quality // ignore: cast_nullable_to_non_nullable
+              as int,
+      zoom: freezed == zoom
+          ? _value.zoom
+          : zoom // ignore: cast_nullable_to_non_nullable
+              as bool?,
+      format: null == format
+          ? _value.format
+          : format // ignore: cast_nullable_to_non_nullable
+              as String,
+      width: freezed == width
+          ? _value.width
+          : width // ignore: cast_nullable_to_non_nullable
+              as int?,
+      height: freezed == height
+          ? _value.height
+          : height // ignore: cast_nullable_to_non_nullable
+              as int?,
+    ) as $Val);
+  }
+}
+
+/// @nodoc
+abstract class _$$ResolutionImplCopyWith<$Res>
+    implements $ResolutionCopyWith<$Res> {
+  factory _$$ResolutionImplCopyWith(
+          _$ResolutionImpl value, $Res Function(_$ResolutionImpl) then) =
+      __$$ResolutionImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call(
+      {@JsonKey(name: "quality") int quality,
+      @JsonKey(name: "zoom") bool? zoom,
+      @JsonKey(name: "format") String format,
+      @JsonKey(name: "width") int? width,
+      @JsonKey(name: "height") int? height});
+}
+
+/// @nodoc
+class __$$ResolutionImplCopyWithImpl<$Res>
+    extends _$ResolutionCopyWithImpl<$Res, _$ResolutionImpl>
+    implements _$$ResolutionImplCopyWith<$Res> {
+  __$$ResolutionImplCopyWithImpl(
+      _$ResolutionImpl _value, $Res Function(_$ResolutionImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of Resolution
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? quality = null,
+    Object? zoom = freezed,
+    Object? format = null,
+    Object? width = freezed,
+    Object? height = freezed,
+  }) {
+    return _then(_$ResolutionImpl(
+      quality: null == quality
+          ? _value.quality
+          : quality // ignore: cast_nullable_to_non_nullable
+              as int,
+      zoom: freezed == zoom
+          ? _value.zoom
+          : zoom // ignore: cast_nullable_to_non_nullable
+              as bool?,
+      format: null == format
+          ? _value.format
+          : format // ignore: cast_nullable_to_non_nullable
+              as String,
+      width: freezed == width
+          ? _value.width
+          : width // ignore: cast_nullable_to_non_nullable
+              as int?,
+      height: freezed == height
+          ? _value.height
+          : height // ignore: cast_nullable_to_non_nullable
+              as int?,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$ResolutionImpl implements _Resolution {
+  const _$ResolutionImpl(
+      {@JsonKey(name: "quality") required this.quality,
+      @JsonKey(name: "zoom") this.zoom,
+      @JsonKey(name: "format") required this.format,
+      @JsonKey(name: "width") this.width,
+      @JsonKey(name: "height") this.height});
+
+  factory _$ResolutionImpl.fromJson(Map<String, dynamic> json) =>
+      _$$ResolutionImplFromJson(json);
+
+  @override
+  @JsonKey(name: "quality")
+  final int quality;
+  @override
+  @JsonKey(name: "zoom")
+  final bool? zoom;
+  @override
+  @JsonKey(name: "format")
+  final String format;
+  @override
+  @JsonKey(name: "width")
+  final int? width;
+  @override
+  @JsonKey(name: "height")
+  final int? height;
+
+  @override
+  String toString() {
+    return 'Resolution(quality: $quality, zoom: $zoom, format: $format, width: $width, height: $height)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$ResolutionImpl &&
+            (identical(other.quality, quality) || other.quality == quality) &&
+            (identical(other.zoom, zoom) || other.zoom == zoom) &&
+            (identical(other.format, format) || other.format == format) &&
+            (identical(other.width, width) || other.width == width) &&
+            (identical(other.height, height) || other.height == height));
+  }
+
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  int get hashCode =>
+      Object.hash(runtimeType, quality, zoom, format, width, height);
+
+  /// Create a copy of Resolution
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$ResolutionImplCopyWith<_$ResolutionImpl> get copyWith =>
+      __$$ResolutionImplCopyWithImpl<_$ResolutionImpl>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$ResolutionImplToJson(
+      this,
+    );
+  }
+}
+
+abstract class _Resolution implements Resolution {
+  const factory _Resolution(
+      {@JsonKey(name: "quality") required final int quality,
+      @JsonKey(name: "zoom") final bool? zoom,
+      @JsonKey(name: "format") required final String format,
+      @JsonKey(name: "width") final int? width,
+      @JsonKey(name: "height") final int? height}) = _$ResolutionImpl;
+
+  factory _Resolution.fromJson(Map<String, dynamic> json) =
+      _$ResolutionImpl.fromJson;
+
+  @override
+  @JsonKey(name: "quality")
+  int get quality;
+  @override
+  @JsonKey(name: "zoom")
+  bool? get zoom;
+  @override
+  @JsonKey(name: "format")
+  String get format;
+  @override
+  @JsonKey(name: "width")
+  int? get width;
+  @override
+  @JsonKey(name: "height")
+  int? get height;
+
+  /// Create a copy of Resolution
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$ResolutionImplCopyWith<_$ResolutionImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+LikeDetail _$LikeDetailFromJson(Map<String, dynamic> json) {
+  return _LikeDetail.fromJson(json);
+}
+
+/// @nodoc
+mixin _$LikeDetail {
+  @JsonKey(name: "likeAt")
+  DateTime get likeAt => throw _privateConstructorUsedError;
+
+  /// Serializes this LikeDetail to a JSON map.
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+
+  /// Create a copy of LikeDetail
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  $LikeDetailCopyWith<LikeDetail> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $LikeDetailCopyWith<$Res> {
+  factory $LikeDetailCopyWith(
+          LikeDetail value, $Res Function(LikeDetail) then) =
+      _$LikeDetailCopyWithImpl<$Res, LikeDetail>;
+  @useResult
+  $Res call({@JsonKey(name: "likeAt") DateTime likeAt});
+}
+
+/// @nodoc
+class _$LikeDetailCopyWithImpl<$Res, $Val extends LikeDetail>
+    implements $LikeDetailCopyWith<$Res> {
+  _$LikeDetailCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  /// Create a copy of LikeDetail
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? likeAt = null,
+  }) {
+    return _then(_value.copyWith(
+      likeAt: null == likeAt
+          ? _value.likeAt
+          : likeAt // ignore: cast_nullable_to_non_nullable
+              as DateTime,
+    ) as $Val);
+  }
+}
+
+/// @nodoc
+abstract class _$$LikeDetailImplCopyWith<$Res>
+    implements $LikeDetailCopyWith<$Res> {
+  factory _$$LikeDetailImplCopyWith(
+          _$LikeDetailImpl value, $Res Function(_$LikeDetailImpl) then) =
+      __$$LikeDetailImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({@JsonKey(name: "likeAt") DateTime likeAt});
+}
+
+/// @nodoc
+class __$$LikeDetailImplCopyWithImpl<$Res>
+    extends _$LikeDetailCopyWithImpl<$Res, _$LikeDetailImpl>
+    implements _$$LikeDetailImplCopyWith<$Res> {
+  __$$LikeDetailImplCopyWithImpl(
+      _$LikeDetailImpl _value, $Res Function(_$LikeDetailImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of LikeDetail
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? likeAt = null,
+  }) {
+    return _then(_$LikeDetailImpl(
+      likeAt: null == likeAt
+          ? _value.likeAt
+          : likeAt // ignore: cast_nullable_to_non_nullable
+              as DateTime,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$LikeDetailImpl implements _LikeDetail {
+  const _$LikeDetailImpl({@JsonKey(name: "likeAt") required this.likeAt});
+
+  factory _$LikeDetailImpl.fromJson(Map<String, dynamic> json) =>
+      _$$LikeDetailImplFromJson(json);
+
+  @override
+  @JsonKey(name: "likeAt")
+  final DateTime likeAt;
+
+  @override
+  String toString() {
+    return 'LikeDetail(likeAt: $likeAt)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$LikeDetailImpl &&
+            (identical(other.likeAt, likeAt) || other.likeAt == likeAt));
+  }
+
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  int get hashCode => Object.hash(runtimeType, likeAt);
+
+  /// Create a copy of LikeDetail
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$LikeDetailImplCopyWith<_$LikeDetailImpl> get copyWith =>
+      __$$LikeDetailImplCopyWithImpl<_$LikeDetailImpl>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$LikeDetailImplToJson(
+      this,
+    );
+  }
+}
+
+abstract class _LikeDetail implements LikeDetail {
+  const factory _LikeDetail(
+          {@JsonKey(name: "likeAt") required final DateTime likeAt}) =
+      _$LikeDetailImpl;
+
+  factory _LikeDetail.fromJson(Map<String, dynamic> json) =
+      _$LikeDetailImpl.fromJson;
+
+  @override
+  @JsonKey(name: "likeAt")
+  DateTime get likeAt;
+
+  /// Create a copy of LikeDetail
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$LikeDetailImplCopyWith<_$LikeDetailImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

@@ -17,9 +17,9 @@ class GetGalleryImagesUseCase {
 
   const GetGalleryImagesUseCase(this._galleryRepository);
 
-  Future<Result<List<GalleryItemModel>, Failure>> call() async {
+  Future<Result<List<GalleryItemModel>, Failure>> call(String psId, int page) async {
     try {
-      final galleryList = await _galleryRepository.getGalleryImages();
+      final galleryList = await _galleryRepository.getGalleryImages( psId, page);
       return Success(galleryList);
     } catch (error, stackTrace) {
       return Error(Failure(

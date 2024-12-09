@@ -3,98 +3,56 @@ import 'package:flutter/material.dart';
 import 'package:mbc_common/mbc_common.dart';
 import 'package:mbc_gallery/domain/model/gallery_item_model.dart';
 import 'package:mbc_gallery/presentation/ui/widgets/image_widget.dart';
-import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:mbc_gallery/presentation/view_model/gallery_view_model.dart';
 
-class GalleryListWidget extends StatelessWidget {
-  final List<GalleryItemModel> wellnessList;
+class GalleryListWidget extends ConsumerWidget {
+  final List<GalleryItemModel> galleryPhotosList;
   final Function(String) onTap;
-  const GalleryListWidget({super.key, required this.wellnessList, required this.onTap});
+  final ScrollController scrollController;
+
+  const GalleryListWidget({super.key, required this.galleryPhotosList, required this.onTap, required this.scrollController});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final isLoadingMore = ref.watch(galleryViewModelProvider.select((state) => state.isLoadingMore));
 
-    final child = ListView(
-      shrinkWrap: true,
-      children: [
-        const SizedBox(
-          height: 32,
-        ),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16.0),
-          child: Text(
-            "These photos will be stored securely for 1 year. Please check the  Privacy and consent for more details.",
-            style: GoogleFonts.openSans(
-                fontSize: 12, fontWeight: FontWeight.w700, letterSpacing: -0.5, height: 1.5, color: const Color(0xFF51534A)),
+    final child = Container(
+      child: CustomScrollView(
+        controller: scrollController,
+        slivers: [
+          const SliverToBoxAdapter(child: SizedBox(height: 32)),
+
+          SliverPadding(
+            padding: const EdgeInsets.symmetric(horizontal: 16.0),
+            sliver: SliverToBoxAdapter(
+              child: Text(
+                "These photos will be stored securely for 1 year. Please check the Privacy and consent for more details.",
+                style: GoogleFonts.openSans(
+                    fontSize: 12, fontWeight: FontWeight.w700, letterSpacing: -0.5, height: 1.5, color: const Color(0xFF51534A)),
+              ),
+            ),
           ),
-        ),
-        const SizedBox(
-          height: 24,
-        ),
-        wellnessList.isEmpty
-            ? const EmptyGalleryWidget()
-            : ListView.builder(
-          shrinkWrap: true,
-          physics: const ClampingScrollPhysics(),
-          itemCount: wellnessList.length,
-          itemBuilder: (BuildContext context, int index) {
-            final galleryItem = wellnessList[index];
-            final DateFormat formatter = DateFormat('MMMM d, y');
+          const SliverToBoxAdapter(child: SizedBox(height: 24)),
 
-            return ListView(
-              shrinkWrap: true,
-              physics: const ClampingScrollPhysics(),
-              children: [
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 15.0),
-                  child: Text(
-                    formatter.format(galleryItem.date),
-                    style: GoogleFonts.openSans(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w700,
-                        letterSpacing: -0.5,
-                        height: 1.5,
-                        color: const Color(0xFF51534A)),
-                  ),
-                ),
-                MasonryGridView.count(
-                  crossAxisCount: 2,
-                  mainAxisSpacing: 8,
-                  crossAxisSpacing: 4,
-                  padding: EdgeInsets.symmetric(
-                      horizontal: isSmallScreen(context)
-                          ? 10
-                          : isMediumScreen(context)
-                          ? 25
-                          : 40,
-                      vertical: 16),
-                  shrinkWrap: true,
-                  itemCount: galleryItem.images.length, // it
-                  physics: const ClampingScrollPhysics(), // emCount
-                  itemBuilder: (context, index) {
-                    final item = galleryItem.images[index];
-                    final itemHeight = getHeight(index % 4);
-                    return SizedBox(
-                      height: itemHeight,
-                      child: HoverableCard(
-                        galleryItem: item,
-                        onTap: onTap,
-                        height: itemHeight,
-                        isLiked: index %2 == 0,
-                      ),
-                    );
-                  },
-                ),
-              ],
-            );
-          },
-        ),
-      ],
+          // Gallery Items Slivers
+          if (galleryPhotosList.isEmpty)
+            const SliverToBoxAdapter(child: EmptyGalleryWidget())
+          else
+            ...buildGalleryItems(context),
+
+          if (isLoadingMore)
+            const SliverToBoxAdapter(
+              child: Center(child: CircularProgressIndicator()),
+            ),
+        ],
+      ),
     );
 
     return kIsWeb? Container(
-      margin: EdgeInsets.all(20),
+      margin: const EdgeInsets.all(20),
       padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
       decoration: const BoxDecoration(
         color: Colors.white,
@@ -117,24 +75,122 @@ class GalleryListWidget extends StatelessWidget {
     );
   }
 
-  double getHeight(int itemTypeIndex) {
-    switch (itemTypeIndex) {
-      case 0:
-        return 229;
-      case 1:
-        return 187;
-      case 2:
-        return 229;
-      case 3:
-        return 187;
-      default:
-        return 187;
+  String getCurrentScreenDimension(BuildContext context){
+    if(isSmallScreen(context))
+      return "Small";
+    else  if(isMediumScreen(context))
+      return "Medium";
+    else  if(isLargeScreen(context))
+      return "Large";
+    else
+      return "Desktop";
+
+  }
+
+  List<Widget> buildGalleryItems(BuildContext context) {
+    List<Widget> slivers = [];
+
+    final photosByDate = <DateTime, List<GalleryItemModel>>{};
+
+    for (var item in galleryPhotosList) {
+      final date = DateTime(
+        item.createdAt.year,
+        item.createdAt.month,
+        item.createdAt.day,
+      );
+
+      photosByDate.putIfAbsent(date, () => []);
+      photosByDate[date]!.add(item);
     }
+
+    final sortedDates = photosByDate.keys.toList()
+      ..sort((a, b) => b.compareTo(a));
+
+
+    for (final date in sortedDates) {
+      final datePhotos = photosByDate[date]!;
+      final dateString = DateFormat('MMMM d, y').format(date);
+
+      // Add a date header
+      slivers.add(
+        SliverPadding(
+          padding: const EdgeInsets.symmetric(horizontal: 15.0),
+          sliver: SliverToBoxAdapter(
+            child: Text(
+              dateString,
+              style: GoogleFonts.openSans(
+                fontSize: 16,
+                fontWeight: FontWeight.w700,
+                letterSpacing: -0.5,
+                height: 1.5,
+                color: const Color(0xFF51534A),
+              ),
+            ),
+          ),
+        ),
+      );
+
+      // Add a 2-column grid of photos for this date
+      slivers.add(
+        SliverPadding(
+          padding: EdgeInsets.symmetric(
+            horizontal: getHorizontalPadding(context),
+            vertical: 16,
+          ),
+          sliver: SliverGrid(
+            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: getNumberOfColumns(context),
+              mainAxisSpacing: 4,
+              crossAxisSpacing: 4,
+            ),
+            delegate: SliverChildBuilderDelegate(
+                  (context, index) {
+                final photoItem = datePhotos[index];
+                final itemHeight = getHeight(context); // Your custom function
+
+                return SizedBox(
+                  height: itemHeight+ (isDesktopScreen(context)? 150:38),
+                  child: HoverableCard(
+                    galleryItem: photoItem,
+                    onTap: onTap,
+                    height: itemHeight,
+                    isLiked: index % 2 == 0, // Example logic for isLiked
+                  ),
+                );
+              },
+              childCount: datePhotos.length,
+            ),
+          ),
+        ),
+      );
+    }
+
+    return slivers;
+  }
+
+
+/*  double getHeight(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+    final horizontalPaddingOffset = isSmallScreen(context)? 27: isMediumScreen(context) ? 12 : 0;
+    final desktopScreenPadding = screenWidth * 0.2;
+    final viewPortWidth = isDesktopScreen(context)? (screenWidth - desktopScreenPadding) : screenWidth;
+    return (viewPortWidth/2)-(getHorizontalPadding(context) * 2) - horizontalPaddingOffset;
+  }*/
+
+  double getHeight(BuildContext context) {
+    return isSmallScreen(context)? 155 :  200;
+  }
+
+  double getHorizontalPadding(BuildContext context){
+   return 10;
   }
 }
 
+
+
+
 class HoverableCard extends StatefulWidget {
-  final String galleryItem;
+  final GalleryItemModel galleryItem;
   final Function(String) onTap;
   final double height;
   final bool isLiked;
@@ -160,9 +216,9 @@ class _HoverableCardState extends State<HoverableCard> {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback(
           (_) {
-       setState(() {
-         isLiked = widget.isLiked;
-       });
+         if(mounted) {
+           isLiked = widget.isLiked;
+         }
       },
     );
   }
@@ -170,13 +226,13 @@ class _HoverableCardState extends State<HoverableCard> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: widget.height,
+      height: widget.height+(isDesktopScreen(context)? 150:38),
       child: MouseRegion(
         onEnter: (_) => setState(() => isHovered = true),
         onExit: (_) => setState(() => isHovered = false),
         child: InkWell(
           onTap: () {
-            widget.onTap(widget.galleryItem);
+            widget.onTap(widget.galleryItem.photos[2].url);
           },
           child: AnimatedScale(
             scale: isHovered ? 1.04 : 1.0, // Slightly larger scale on hover
@@ -196,14 +252,15 @@ class _HoverableCardState extends State<HoverableCard> {
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(12.0),
                       child: SizedBox(
-                        height: isLargeScreen(context) ? 300 : widget.height-38,
+                        height: widget.height,
                         child: Hero(
-                          tag: widget.galleryItem,
+                          tag: widget.galleryItem.photos[2].url,
                           child: ImageWidget(
-                            width: isLargeScreen(context) ? 400 : 200,
-                            height: isLargeScreen(context) ? 300 : widget.height-38,
-                            url: widget.galleryItem,
+                            width:  widget.height,
+                            height:  widget.height,
+                            url: widget.galleryItem.photos[0].url,
                             isCover: true,
+                            id: widget.galleryItem.id,
                           ),
                         ),
                       ),
@@ -289,26 +346,36 @@ class GalleryLoadingWidget extends StatelessWidget {
   }
 }
 
-bool isSmallScreen(BuildContext context) => MediaQuery.of(context).size.width < BreakPoint.tablet;
+bool isSmallScreen(BuildContext context) => MediaQuery.of(context).size.width < BreakPoint.small;
 
 bool isMediumScreen(BuildContext context) =>
-    MediaQuery.of(context).size.width >= BreakPoint.tablet && MediaQuery.of(context).size.width < BreakPoint.desktop;
+    MediaQuery.of(context).size.width >= BreakPoint.small && MediaQuery.of(context).size.width < BreakPoint.medium;
 
-bool isLargeScreen(BuildContext context) => MediaQuery.of(context).size.width > BreakPoint.desktop;
+bool isLargeScreen(BuildContext context) => MediaQuery.of(context).size.width >= BreakPoint.medium && MediaQuery.of(context).size.width < BreakPoint.large;
+
+bool isDesktopScreen(BuildContext context) => MediaQuery.of(context).size.width >= BreakPoint.large;
 
 int getNumberOfColumns(BuildContext context) {
-  if (isLargeScreen(context)) {
-    return 6;
+  if (isDesktopScreen(context)) {
+    return 3;
+  }
+  else if (isLargeScreen(context)) {
+    return 3;
   } else if (isMediumScreen(context)) {
-    return 4;
+    return 2;
   } else {
     return 2;
   }
 }
 
 abstract class BreakPoint {
-  static const double desktop = 900;
-  static const double tablet = 600;
+
+  static const double small = 600;
+
+  static const double medium = 900;
+
+  static const double large = 1200;
+
+  static const double desktop = 1200;
 }
 
-enum PhotoSize { v1, v2 }

@@ -18,6 +18,9 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$GalleryState {
   AsyncValue<List<GalleryItemModel>> get galleryList =>
       throw _privateConstructorUsedError;
+  int get currentPage => throw _privateConstructorUsedError;
+  bool get isLoadingMore => throw _privateConstructorUsedError;
+  bool get shouldLoadMore => throw _privateConstructorUsedError;
 
   /// Create a copy of GalleryState
   /// with the given fields replaced by the non-null parameter values.
@@ -32,7 +35,11 @@ abstract class $GalleryStateCopyWith<$Res> {
           GalleryState value, $Res Function(GalleryState) then) =
       _$GalleryStateCopyWithImpl<$Res, GalleryState>;
   @useResult
-  $Res call({AsyncValue<List<GalleryItemModel>> galleryList});
+  $Res call(
+      {AsyncValue<List<GalleryItemModel>> galleryList,
+      int currentPage,
+      bool isLoadingMore,
+      bool shouldLoadMore});
 }
 
 /// @nodoc
@@ -51,12 +58,27 @@ class _$GalleryStateCopyWithImpl<$Res, $Val extends GalleryState>
   @override
   $Res call({
     Object? galleryList = null,
+    Object? currentPage = null,
+    Object? isLoadingMore = null,
+    Object? shouldLoadMore = null,
   }) {
     return _then(_value.copyWith(
       galleryList: null == galleryList
           ? _value.galleryList
           : galleryList // ignore: cast_nullable_to_non_nullable
               as AsyncValue<List<GalleryItemModel>>,
+      currentPage: null == currentPage
+          ? _value.currentPage
+          : currentPage // ignore: cast_nullable_to_non_nullable
+              as int,
+      isLoadingMore: null == isLoadingMore
+          ? _value.isLoadingMore
+          : isLoadingMore // ignore: cast_nullable_to_non_nullable
+              as bool,
+      shouldLoadMore: null == shouldLoadMore
+          ? _value.shouldLoadMore
+          : shouldLoadMore // ignore: cast_nullable_to_non_nullable
+              as bool,
     ) as $Val);
   }
 }
@@ -69,7 +91,11 @@ abstract class _$$GalleryStateImplCopyWith<$Res>
       __$$GalleryStateImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({AsyncValue<List<GalleryItemModel>> galleryList});
+  $Res call(
+      {AsyncValue<List<GalleryItemModel>> galleryList,
+      int currentPage,
+      bool isLoadingMore,
+      bool shouldLoadMore});
 }
 
 /// @nodoc
@@ -86,12 +112,27 @@ class __$$GalleryStateImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? galleryList = null,
+    Object? currentPage = null,
+    Object? isLoadingMore = null,
+    Object? shouldLoadMore = null,
   }) {
     return _then(_$GalleryStateImpl(
       galleryList: null == galleryList
           ? _value.galleryList
           : galleryList // ignore: cast_nullable_to_non_nullable
               as AsyncValue<List<GalleryItemModel>>,
+      currentPage: null == currentPage
+          ? _value.currentPage
+          : currentPage // ignore: cast_nullable_to_non_nullable
+              as int,
+      isLoadingMore: null == isLoadingMore
+          ? _value.isLoadingMore
+          : isLoadingMore // ignore: cast_nullable_to_non_nullable
+              as bool,
+      shouldLoadMore: null == shouldLoadMore
+          ? _value.shouldLoadMore
+          : shouldLoadMore // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -99,15 +140,28 @@ class __$$GalleryStateImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$GalleryStateImpl implements _GalleryState {
-  const _$GalleryStateImpl({this.galleryList = const AsyncLoading()});
+  const _$GalleryStateImpl(
+      {this.galleryList = const AsyncLoading(),
+      this.currentPage = 1,
+      this.isLoadingMore = false,
+      this.shouldLoadMore = true});
 
   @override
   @JsonKey()
   final AsyncValue<List<GalleryItemModel>> galleryList;
+  @override
+  @JsonKey()
+  final int currentPage;
+  @override
+  @JsonKey()
+  final bool isLoadingMore;
+  @override
+  @JsonKey()
+  final bool shouldLoadMore;
 
   @override
   String toString() {
-    return 'GalleryState(galleryList: $galleryList)';
+    return 'GalleryState(galleryList: $galleryList, currentPage: $currentPage, isLoadingMore: $isLoadingMore, shouldLoadMore: $shouldLoadMore)';
   }
 
   @override
@@ -116,11 +170,18 @@ class _$GalleryStateImpl implements _GalleryState {
         (other.runtimeType == runtimeType &&
             other is _$GalleryStateImpl &&
             (identical(other.galleryList, galleryList) ||
-                other.galleryList == galleryList));
+                other.galleryList == galleryList) &&
+            (identical(other.currentPage, currentPage) ||
+                other.currentPage == currentPage) &&
+            (identical(other.isLoadingMore, isLoadingMore) ||
+                other.isLoadingMore == isLoadingMore) &&
+            (identical(other.shouldLoadMore, shouldLoadMore) ||
+                other.shouldLoadMore == shouldLoadMore));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, galleryList);
+  int get hashCode => Object.hash(
+      runtimeType, galleryList, currentPage, isLoadingMore, shouldLoadMore);
 
   /// Create a copy of GalleryState
   /// with the given fields replaced by the non-null parameter values.
@@ -133,11 +194,19 @@ class _$GalleryStateImpl implements _GalleryState {
 
 abstract class _GalleryState implements GalleryState {
   const factory _GalleryState(
-          {final AsyncValue<List<GalleryItemModel>> galleryList}) =
-      _$GalleryStateImpl;
+      {final AsyncValue<List<GalleryItemModel>> galleryList,
+      final int currentPage,
+      final bool isLoadingMore,
+      final bool shouldLoadMore}) = _$GalleryStateImpl;
 
   @override
   AsyncValue<List<GalleryItemModel>> get galleryList;
+  @override
+  int get currentPage;
+  @override
+  bool get isLoadingMore;
+  @override
+  bool get shouldLoadMore;
 
   /// Create a copy of GalleryState
   /// with the given fields replaced by the non-null parameter values.

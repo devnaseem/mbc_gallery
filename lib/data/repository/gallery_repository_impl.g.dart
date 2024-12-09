@@ -7,7 +7,7 @@ part of 'gallery_repository_impl.dart';
 // **************************************************************************
 
 String _$galleryRepositoryImplHash() =>
-    r'1a84ab24fe6526305609476bc1d37d1ac4153c85';
+    r'a78bdaea85841037eb55548e939b56409f7343d0';
 
 /// See also [galleryRepositoryImpl].
 @ProviderFor(galleryRepositoryImpl)

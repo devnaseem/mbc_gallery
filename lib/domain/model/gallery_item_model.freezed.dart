@@ -16,9 +16,11 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$GalleryItemModel {
-  DateTime get date => throw _privateConstructorUsedError;
-  List<String> get images => throw _privateConstructorUsedError;
-  dynamic get required => throw _privateConstructorUsedError;
+  String get id => throw _privateConstructorUsedError;
+  DateTime get createdAt => throw _privateConstructorUsedError;
+  String get visitId => throw _privateConstructorUsedError;
+  List<PhotoModel> get photos => throw _privateConstructorUsedError;
+  Map<String, LikeDetailModel> get likes => throw _privateConstructorUsedError;
 
   /// Create a copy of GalleryItemModel
   /// with the given fields replaced by the non-null parameter values.
@@ -33,7 +35,12 @@ abstract class $GalleryItemModelCopyWith<$Res> {
           GalleryItemModel value, $Res Function(GalleryItemModel) then) =
       _$GalleryItemModelCopyWithImpl<$Res, GalleryItemModel>;
   @useResult
-  $Res call({DateTime date, List<String> images, dynamic required});
+  $Res call(
+      {String id,
+      DateTime createdAt,
+      String visitId,
+      List<PhotoModel> photos,
+      Map<String, LikeDetailModel> likes});
 }
 
 /// @nodoc
@@ -51,23 +58,33 @@ class _$GalleryItemModelCopyWithImpl<$Res, $Val extends GalleryItemModel>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? date = null,
-    Object? images = null,
-    Object? required = freezed,
+    Object? id = null,
+    Object? createdAt = null,
+    Object? visitId = null,
+    Object? photos = null,
+    Object? likes = null,
   }) {
     return _then(_value.copyWith(
-      date: null == date
-          ? _value.date
-          : date // ignore: cast_nullable_to_non_nullable
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as String,
+      createdAt: null == createdAt
+          ? _value.createdAt
+          : createdAt // ignore: cast_nullable_to_non_nullable
               as DateTime,
-      images: null == images
-          ? _value.images
-          : images // ignore: cast_nullable_to_non_nullable
-              as List<String>,
-      required: freezed == required
-          ? _value.required
-          : required // ignore: cast_nullable_to_non_nullable
-              as dynamic,
+      visitId: null == visitId
+          ? _value.visitId
+          : visitId // ignore: cast_nullable_to_non_nullable
+              as String,
+      photos: null == photos
+          ? _value.photos
+          : photos // ignore: cast_nullable_to_non_nullable
+              as List<PhotoModel>,
+      likes: null == likes
+          ? _value.likes
+          : likes // ignore: cast_nullable_to_non_nullable
+              as Map<String, LikeDetailModel>,
     ) as $Val);
   }
 }
@@ -80,7 +97,12 @@ abstract class _$$GalleryItemModelImplCopyWith<$Res>
       __$$GalleryItemModelImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({DateTime date, List<String> images, dynamic required});
+  $Res call(
+      {String id,
+      DateTime createdAt,
+      String visitId,
+      List<PhotoModel> photos,
+      Map<String, LikeDetailModel> likes});
 }
 
 /// @nodoc
@@ -96,20 +118,33 @@ class __$$GalleryItemModelImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? date = null,
-    Object? images = null,
-    Object? required = freezed,
+    Object? id = null,
+    Object? createdAt = null,
+    Object? visitId = null,
+    Object? photos = null,
+    Object? likes = null,
   }) {
     return _then(_$GalleryItemModelImpl(
-      date: null == date
-          ? _value.date
-          : date // ignore: cast_nullable_to_non_nullable
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as String,
+      createdAt: null == createdAt
+          ? _value.createdAt
+          : createdAt // ignore: cast_nullable_to_non_nullable
               as DateTime,
-      images: null == images
-          ? _value._images
-          : images // ignore: cast_nullable_to_non_nullable
-              as List<String>,
-      required: freezed == required ? _value.required! : required,
+      visitId: null == visitId
+          ? _value.visitId
+          : visitId // ignore: cast_nullable_to_non_nullable
+              as String,
+      photos: null == photos
+          ? _value._photos
+          : photos // ignore: cast_nullable_to_non_nullable
+              as List<PhotoModel>,
+      likes: null == likes
+          ? _value._likes
+          : likes // ignore: cast_nullable_to_non_nullable
+              as Map<String, LikeDetailModel>,
     ));
   }
 }
@@ -118,25 +153,39 @@ class __$$GalleryItemModelImplCopyWithImpl<$Res>
 
 class _$GalleryItemModelImpl implements _GalleryItemModel {
   const _$GalleryItemModelImpl(
-      {required this.date, required final List<String> images, this.required})
-      : _images = images;
+      {required this.id,
+      required this.createdAt,
+      required this.visitId,
+      required final List<PhotoModel> photos,
+      required final Map<String, LikeDetailModel> likes})
+      : _photos = photos,
+        _likes = likes;
 
   @override
-  final DateTime date;
-  final List<String> _images;
+  final String id;
   @override
-  List<String> get images {
-    if (_images is EqualUnmodifiableListView) return _images;
+  final DateTime createdAt;
+  @override
+  final String visitId;
+  final List<PhotoModel> _photos;
+  @override
+  List<PhotoModel> get photos {
+    if (_photos is EqualUnmodifiableListView) return _photos;
     // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_images);
+    return EqualUnmodifiableListView(_photos);
+  }
+
+  final Map<String, LikeDetailModel> _likes;
+  @override
+  Map<String, LikeDetailModel> get likes {
+    if (_likes is EqualUnmodifiableMapView) return _likes;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableMapView(_likes);
   }
 
   @override
-  final dynamic required;
-
-  @override
   String toString() {
-    return 'GalleryItemModel(date: $date, images: $images, required: $required)';
+    return 'GalleryItemModel(id: $id, createdAt: $createdAt, visitId: $visitId, photos: $photos, likes: $likes)';
   }
 
   @override
@@ -144,17 +193,22 @@ class _$GalleryItemModelImpl implements _GalleryItemModel {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$GalleryItemModelImpl &&
-            (identical(other.date, date) || other.date == date) &&
-            const DeepCollectionEquality().equals(other._images, _images) &&
-            const DeepCollectionEquality().equals(other.required, required));
+            (identical(other.id, id) || other.id == id) &&
+            (identical(other.createdAt, createdAt) ||
+                other.createdAt == createdAt) &&
+            (identical(other.visitId, visitId) || other.visitId == visitId) &&
+            const DeepCollectionEquality().equals(other._photos, _photos) &&
+            const DeepCollectionEquality().equals(other._likes, _likes));
   }
 
   @override
   int get hashCode => Object.hash(
       runtimeType,
-      date,
-      const DeepCollectionEquality().hash(_images),
-      const DeepCollectionEquality().hash(required));
+      id,
+      createdAt,
+      visitId,
+      const DeepCollectionEquality().hash(_photos),
+      const DeepCollectionEquality().hash(_likes));
 
   /// Create a copy of GalleryItemModel
   /// with the given fields replaced by the non-null parameter values.
@@ -168,21 +222,524 @@ class _$GalleryItemModelImpl implements _GalleryItemModel {
 
 abstract class _GalleryItemModel implements GalleryItemModel {
   const factory _GalleryItemModel(
-      {required final DateTime date,
-      required final List<String> images,
-      final dynamic required}) = _$GalleryItemModelImpl;
+          {required final String id,
+          required final DateTime createdAt,
+          required final String visitId,
+          required final List<PhotoModel> photos,
+          required final Map<String, LikeDetailModel> likes}) =
+      _$GalleryItemModelImpl;
 
   @override
-  DateTime get date;
+  String get id;
   @override
-  List<String> get images;
+  DateTime get createdAt;
   @override
-  dynamic get required;
+  String get visitId;
+  @override
+  List<PhotoModel> get photos;
+  @override
+  Map<String, LikeDetailModel> get likes;
 
   /// Create a copy of GalleryItemModel
   /// with the given fields replaced by the non-null parameter values.
   @override
   @JsonKey(includeFromJson: false, includeToJson: false)
   _$$GalleryItemModelImplCopyWith<_$GalleryItemModelImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+mixin _$PhotoModel {
+  String get url => throw _privateConstructorUsedError;
+  ResolutionModel get resolution => throw _privateConstructorUsedError;
+
+  /// Create a copy of PhotoModel
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  $PhotoModelCopyWith<PhotoModel> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $PhotoModelCopyWith<$Res> {
+  factory $PhotoModelCopyWith(
+          PhotoModel value, $Res Function(PhotoModel) then) =
+      _$PhotoModelCopyWithImpl<$Res, PhotoModel>;
+  @useResult
+  $Res call({String url, ResolutionModel resolution});
+
+  $ResolutionModelCopyWith<$Res> get resolution;
+}
+
+/// @nodoc
+class _$PhotoModelCopyWithImpl<$Res, $Val extends PhotoModel>
+    implements $PhotoModelCopyWith<$Res> {
+  _$PhotoModelCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  /// Create a copy of PhotoModel
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? url = null,
+    Object? resolution = null,
+  }) {
+    return _then(_value.copyWith(
+      url: null == url
+          ? _value.url
+          : url // ignore: cast_nullable_to_non_nullable
+              as String,
+      resolution: null == resolution
+          ? _value.resolution
+          : resolution // ignore: cast_nullable_to_non_nullable
+              as ResolutionModel,
+    ) as $Val);
+  }
+
+  /// Create a copy of PhotoModel
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $ResolutionModelCopyWith<$Res> get resolution {
+    return $ResolutionModelCopyWith<$Res>(_value.resolution, (value) {
+      return _then(_value.copyWith(resolution: value) as $Val);
+    });
+  }
+}
+
+/// @nodoc
+abstract class _$$PhotoModelImplCopyWith<$Res>
+    implements $PhotoModelCopyWith<$Res> {
+  factory _$$PhotoModelImplCopyWith(
+          _$PhotoModelImpl value, $Res Function(_$PhotoModelImpl) then) =
+      __$$PhotoModelImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({String url, ResolutionModel resolution});
+
+  @override
+  $ResolutionModelCopyWith<$Res> get resolution;
+}
+
+/// @nodoc
+class __$$PhotoModelImplCopyWithImpl<$Res>
+    extends _$PhotoModelCopyWithImpl<$Res, _$PhotoModelImpl>
+    implements _$$PhotoModelImplCopyWith<$Res> {
+  __$$PhotoModelImplCopyWithImpl(
+      _$PhotoModelImpl _value, $Res Function(_$PhotoModelImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of PhotoModel
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? url = null,
+    Object? resolution = null,
+  }) {
+    return _then(_$PhotoModelImpl(
+      url: null == url
+          ? _value.url
+          : url // ignore: cast_nullable_to_non_nullable
+              as String,
+      resolution: null == resolution
+          ? _value.resolution
+          : resolution // ignore: cast_nullable_to_non_nullable
+              as ResolutionModel,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$PhotoModelImpl implements _PhotoModel {
+  const _$PhotoModelImpl({required this.url, required this.resolution});
+
+  @override
+  final String url;
+  @override
+  final ResolutionModel resolution;
+
+  @override
+  String toString() {
+    return 'PhotoModel(url: $url, resolution: $resolution)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$PhotoModelImpl &&
+            (identical(other.url, url) || other.url == url) &&
+            (identical(other.resolution, resolution) ||
+                other.resolution == resolution));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, url, resolution);
+
+  /// Create a copy of PhotoModel
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$PhotoModelImplCopyWith<_$PhotoModelImpl> get copyWith =>
+      __$$PhotoModelImplCopyWithImpl<_$PhotoModelImpl>(this, _$identity);
+}
+
+abstract class _PhotoModel implements PhotoModel {
+  const factory _PhotoModel(
+      {required final String url,
+      required final ResolutionModel resolution}) = _$PhotoModelImpl;
+
+  @override
+  String get url;
+  @override
+  ResolutionModel get resolution;
+
+  /// Create a copy of PhotoModel
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$PhotoModelImplCopyWith<_$PhotoModelImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+mixin _$ResolutionModel {
+  int get quality => throw _privateConstructorUsedError;
+  bool? get zoom => throw _privateConstructorUsedError;
+  String get format => throw _privateConstructorUsedError;
+  int? get width => throw _privateConstructorUsedError;
+  int? get height => throw _privateConstructorUsedError;
+
+  /// Create a copy of ResolutionModel
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  $ResolutionModelCopyWith<ResolutionModel> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $ResolutionModelCopyWith<$Res> {
+  factory $ResolutionModelCopyWith(
+          ResolutionModel value, $Res Function(ResolutionModel) then) =
+      _$ResolutionModelCopyWithImpl<$Res, ResolutionModel>;
+  @useResult
+  $Res call({int quality, bool? zoom, String format, int? width, int? height});
+}
+
+/// @nodoc
+class _$ResolutionModelCopyWithImpl<$Res, $Val extends ResolutionModel>
+    implements $ResolutionModelCopyWith<$Res> {
+  _$ResolutionModelCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  /// Create a copy of ResolutionModel
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? quality = null,
+    Object? zoom = freezed,
+    Object? format = null,
+    Object? width = freezed,
+    Object? height = freezed,
+  }) {
+    return _then(_value.copyWith(
+      quality: null == quality
+          ? _value.quality
+          : quality // ignore: cast_nullable_to_non_nullable
+              as int,
+      zoom: freezed == zoom
+          ? _value.zoom
+          : zoom // ignore: cast_nullable_to_non_nullable
+              as bool?,
+      format: null == format
+          ? _value.format
+          : format // ignore: cast_nullable_to_non_nullable
+              as String,
+      width: freezed == width
+          ? _value.width
+          : width // ignore: cast_nullable_to_non_nullable
+              as int?,
+      height: freezed == height
+          ? _value.height
+          : height // ignore: cast_nullable_to_non_nullable
+              as int?,
+    ) as $Val);
+  }
+}
+
+/// @nodoc
+abstract class _$$ResolutionModelImplCopyWith<$Res>
+    implements $ResolutionModelCopyWith<$Res> {
+  factory _$$ResolutionModelImplCopyWith(_$ResolutionModelImpl value,
+          $Res Function(_$ResolutionModelImpl) then) =
+      __$$ResolutionModelImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({int quality, bool? zoom, String format, int? width, int? height});
+}
+
+/// @nodoc
+class __$$ResolutionModelImplCopyWithImpl<$Res>
+    extends _$ResolutionModelCopyWithImpl<$Res, _$ResolutionModelImpl>
+    implements _$$ResolutionModelImplCopyWith<$Res> {
+  __$$ResolutionModelImplCopyWithImpl(
+      _$ResolutionModelImpl _value, $Res Function(_$ResolutionModelImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of ResolutionModel
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? quality = null,
+    Object? zoom = freezed,
+    Object? format = null,
+    Object? width = freezed,
+    Object? height = freezed,
+  }) {
+    return _then(_$ResolutionModelImpl(
+      quality: null == quality
+          ? _value.quality
+          : quality // ignore: cast_nullable_to_non_nullable
+              as int,
+      zoom: freezed == zoom
+          ? _value.zoom
+          : zoom // ignore: cast_nullable_to_non_nullable
+              as bool?,
+      format: null == format
+          ? _value.format
+          : format // ignore: cast_nullable_to_non_nullable
+              as String,
+      width: freezed == width
+          ? _value.width
+          : width // ignore: cast_nullable_to_non_nullable
+              as int?,
+      height: freezed == height
+          ? _value.height
+          : height // ignore: cast_nullable_to_non_nullable
+              as int?,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$ResolutionModelImpl implements _ResolutionModel {
+  const _$ResolutionModelImpl(
+      {required this.quality,
+      this.zoom,
+      required this.format,
+      this.width,
+      this.height});
+
+  @override
+  final int quality;
+  @override
+  final bool? zoom;
+  @override
+  final String format;
+  @override
+  final int? width;
+  @override
+  final int? height;
+
+  @override
+  String toString() {
+    return 'ResolutionModel(quality: $quality, zoom: $zoom, format: $format, width: $width, height: $height)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$ResolutionModelImpl &&
+            (identical(other.quality, quality) || other.quality == quality) &&
+            (identical(other.zoom, zoom) || other.zoom == zoom) &&
+            (identical(other.format, format) || other.format == format) &&
+            (identical(other.width, width) || other.width == width) &&
+            (identical(other.height, height) || other.height == height));
+  }
+
+  @override
+  int get hashCode =>
+      Object.hash(runtimeType, quality, zoom, format, width, height);
+
+  /// Create a copy of ResolutionModel
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$ResolutionModelImplCopyWith<_$ResolutionModelImpl> get copyWith =>
+      __$$ResolutionModelImplCopyWithImpl<_$ResolutionModelImpl>(
+          this, _$identity);
+}
+
+abstract class _ResolutionModel implements ResolutionModel {
+  const factory _ResolutionModel(
+      {required final int quality,
+      final bool? zoom,
+      required final String format,
+      final int? width,
+      final int? height}) = _$ResolutionModelImpl;
+
+  @override
+  int get quality;
+  @override
+  bool? get zoom;
+  @override
+  String get format;
+  @override
+  int? get width;
+  @override
+  int? get height;
+
+  /// Create a copy of ResolutionModel
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$ResolutionModelImplCopyWith<_$ResolutionModelImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+mixin _$LikeDetailModel {
+  DateTime get likeAt => throw _privateConstructorUsedError;
+
+  /// Create a copy of LikeDetailModel
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  $LikeDetailModelCopyWith<LikeDetailModel> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $LikeDetailModelCopyWith<$Res> {
+  factory $LikeDetailModelCopyWith(
+          LikeDetailModel value, $Res Function(LikeDetailModel) then) =
+      _$LikeDetailModelCopyWithImpl<$Res, LikeDetailModel>;
+  @useResult
+  $Res call({DateTime likeAt});
+}
+
+/// @nodoc
+class _$LikeDetailModelCopyWithImpl<$Res, $Val extends LikeDetailModel>
+    implements $LikeDetailModelCopyWith<$Res> {
+  _$LikeDetailModelCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  /// Create a copy of LikeDetailModel
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? likeAt = null,
+  }) {
+    return _then(_value.copyWith(
+      likeAt: null == likeAt
+          ? _value.likeAt
+          : likeAt // ignore: cast_nullable_to_non_nullable
+              as DateTime,
+    ) as $Val);
+  }
+}
+
+/// @nodoc
+abstract class _$$LikeDetailModelImplCopyWith<$Res>
+    implements $LikeDetailModelCopyWith<$Res> {
+  factory _$$LikeDetailModelImplCopyWith(_$LikeDetailModelImpl value,
+          $Res Function(_$LikeDetailModelImpl) then) =
+      __$$LikeDetailModelImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({DateTime likeAt});
+}
+
+/// @nodoc
+class __$$LikeDetailModelImplCopyWithImpl<$Res>
+    extends _$LikeDetailModelCopyWithImpl<$Res, _$LikeDetailModelImpl>
+    implements _$$LikeDetailModelImplCopyWith<$Res> {
+  __$$LikeDetailModelImplCopyWithImpl(
+      _$LikeDetailModelImpl _value, $Res Function(_$LikeDetailModelImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of LikeDetailModel
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? likeAt = null,
+  }) {
+    return _then(_$LikeDetailModelImpl(
+      likeAt: null == likeAt
+          ? _value.likeAt
+          : likeAt // ignore: cast_nullable_to_non_nullable
+              as DateTime,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$LikeDetailModelImpl implements _LikeDetailModel {
+  const _$LikeDetailModelImpl({required this.likeAt});
+
+  @override
+  final DateTime likeAt;
+
+  @override
+  String toString() {
+    return 'LikeDetailModel(likeAt: $likeAt)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$LikeDetailModelImpl &&
+            (identical(other.likeAt, likeAt) || other.likeAt == likeAt));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, likeAt);
+
+  /// Create a copy of LikeDetailModel
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$LikeDetailModelImplCopyWith<_$LikeDetailModelImpl> get copyWith =>
+      __$$LikeDetailModelImplCopyWithImpl<_$LikeDetailModelImpl>(
+          this, _$identity);
+}
+
+abstract class _LikeDetailModel implements LikeDetailModel {
+  const factory _LikeDetailModel({required final DateTime likeAt}) =
+      _$LikeDetailModelImpl;
+
+  @override
+  DateTime get likeAt;
+
+  /// Create a copy of LikeDetailModel
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$LikeDetailModelImplCopyWith<_$LikeDetailModelImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

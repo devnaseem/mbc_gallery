@@ -6,31 +6,66 @@ part of 'gallery_list_response.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$GalleryListResponseImpl _$$GalleryListResponseImplFromJson(
+_$GalleryItemResponseImpl _$$GalleryItemResponseImplFromJson(
         Map<String, dynamic> json) =>
-    _$GalleryListResponseImpl(
-      galleryWithDate: (json['galleryWithDate'] as List<dynamic>)
-          .map((e) => GalleryWithDate.fromJson(e as Map<String, dynamic>))
+    _$GalleryItemResponseImpl(
+      id: json['id'] as String,
+      photos: (json['photos'] as List<dynamic>)
+          .map((e) => Photo.fromJson(e as Map<String, dynamic>))
           .toList(),
+      portrait: json['portrait'] as bool,
+      likes: (json['likes'] as Map<String, dynamic>).map(
+        (k, e) => MapEntry(k, LikeDetail.fromJson(e as Map<String, dynamic>)),
+      ),
+      createdAt: DateTime.parse(json['createdAt'] as String),
     );
 
-Map<String, dynamic> _$$GalleryListResponseImplToJson(
-        _$GalleryListResponseImpl instance) =>
+Map<String, dynamic> _$$GalleryItemResponseImplToJson(
+        _$GalleryItemResponseImpl instance) =>
     <String, dynamic>{
-      'galleryWithDate': instance.galleryWithDate,
+      'id': instance.id,
+      'photos': instance.photos,
+      'portrait': instance.portrait,
+      'likes': instance.likes,
+      'createdAt': instance.createdAt.toIso8601String(),
     };
 
-_$GalleryWithDateImpl _$$GalleryWithDateImplFromJson(
-        Map<String, dynamic> json) =>
-    _$GalleryWithDateImpl(
-      date: DateTime.parse(json['date'] as String),
-      images:
-          (json['images'] as List<dynamic>).map((e) => e as String).toList(),
+_$PhotoImpl _$$PhotoImplFromJson(Map<String, dynamic> json) => _$PhotoImpl(
+      url: json['url'] as String,
+      resolution:
+          Resolution.fromJson(json['resolution'] as Map<String, dynamic>),
     );
 
-Map<String, dynamic> _$$GalleryWithDateImplToJson(
-        _$GalleryWithDateImpl instance) =>
+Map<String, dynamic> _$$PhotoImplToJson(_$PhotoImpl instance) =>
     <String, dynamic>{
-      'date': instance.date.toIso8601String(),
-      'images': instance.images,
+      'url': instance.url,
+      'resolution': instance.resolution,
+    };
+
+_$ResolutionImpl _$$ResolutionImplFromJson(Map<String, dynamic> json) =>
+    _$ResolutionImpl(
+      quality: (json['quality'] as num).toInt(),
+      zoom: json['zoom'] as bool?,
+      format: json['format'] as String,
+      width: (json['width'] as num?)?.toInt(),
+      height: (json['height'] as num?)?.toInt(),
+    );
+
+Map<String, dynamic> _$$ResolutionImplToJson(_$ResolutionImpl instance) =>
+    <String, dynamic>{
+      'quality': instance.quality,
+      'zoom': instance.zoom,
+      'format': instance.format,
+      'width': instance.width,
+      'height': instance.height,
+    };
+
+_$LikeDetailImpl _$$LikeDetailImplFromJson(Map<String, dynamic> json) =>
+    _$LikeDetailImpl(
+      likeAt: DateTime.parse(json['likeAt'] as String),
+    );
+
+Map<String, dynamic> _$$LikeDetailImplToJson(_$LikeDetailImpl instance) =>
+    <String, dynamic>{
+      'likeAt': instance.likeAt.toIso8601String(),
     };

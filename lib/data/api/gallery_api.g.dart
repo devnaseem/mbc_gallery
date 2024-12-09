@@ -13,9 +13,7 @@ class _GalleryApi implements GalleryApi {
     this._dio, {
     this.baseUrl,
     this.errorLogger,
-  }) {
-    baseUrl ??= 'https://nascode-338705814149.asia-south2.run.app/api/v1/';
-  }
+  });
 
   final Dio _dio;
 
@@ -24,19 +22,22 @@ class _GalleryApi implements GalleryApi {
   final ParseErrorLogger? errorLogger;
 
   @override
-  Future<GalleryListResponse> getGalleryMockData() async {
+  Future<List<GalleryItemResponse>> getGalleryMockData(
+    int page,
+    String psId,
+  ) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
-    final _options = _setStreamType<GalleryListResponse>(Options(
+    final _options = _setStreamType<List<GalleryItemResponse>>(Options(
       method: 'GET',
       headers: _headers,
       extra: _extra,
     )
         .compose(
           _dio.options,
-          'galleryWithDate',
+          '/wellness-photos/${psId}/photos/${page}',
           queryParameters: queryParameters,
           data: _data,
         )
@@ -45,10 +46,13 @@ class _GalleryApi implements GalleryApi {
           _dio.options.baseUrl,
           baseUrl,
         )));
-    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
-    late GalleryListResponse _value;
+    final _result = await _dio.fetch<List<dynamic>>(_options);
+    late List<GalleryItemResponse> _value;
     try {
-      _value = await compute(deserializeGalleryListResponse, _result.data!);
+      _value = await compute(
+        deserializeGalleryItemResponseList,
+        _result.data!.cast<Map<String, dynamic>>(),
+      );
     } on Object catch (e, s) {
       errorLogger?.logError(e, s, _options);
       rethrow;

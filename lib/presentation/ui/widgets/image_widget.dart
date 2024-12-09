@@ -9,12 +9,14 @@ class ImageWidget extends StatelessWidget {
     this.width = 186.0,
     this.height = 157.0,
     this.isCover = true,
+    required this.id,
   });
   // Attributes
   final String url;
   final double width;
   final double height;
   final bool isCover;
+  final String id;
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +26,9 @@ class ImageWidget extends StatelessWidget {
       height: height,
       width: width,
       placeholder: MemoryImage(kTransparentImage),
-      image: CachedNetworkImageProvider(url),
+      image: CachedNetworkImageProvider(url,
+      cacheKey: id,
+      ),
     );
   }
 }

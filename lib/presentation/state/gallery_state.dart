@@ -8,5 +8,8 @@ part 'gallery_state.freezed.dart';
 abstract class GalleryState with _$GalleryState {
   const factory GalleryState({
     @Default(AsyncLoading()) AsyncValue<List<GalleryItemModel>> galleryList,
+    @Default(1) int currentPage,
+    @Default(false) bool isLoadingMore,
+    @Default(true) bool shouldLoadMore,
   }) = _GalleryState;
 }
