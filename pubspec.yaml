@@ -30,7 +30,6 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  flutter_lints: ^4.0.0
   build_runner: ^2.4.11
   envied_generator: ^0.5.4+1
   retrofit_generator: ">=8.1.2"
@@ -38,7 +37,8 @@ dev_dependencies:
   freezed: ^2.5.7
   riverpod_generator: ^2.4.2
   riverpod_lint: ^2.3.12
-  custom_lint: ^0.6.4
+  custom_lint_core: 0.6.9 # or an earlier compatible version
+
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

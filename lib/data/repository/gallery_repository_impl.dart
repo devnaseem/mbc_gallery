@@ -24,7 +24,7 @@ class GalleryRepositoryImpl with DioExceptionMixin implements IGalleryRepository
   @override
   Future<List<GalleryItemModel>> getGalleryImages(String psId, int page) async {
     final galleryListResponse = await callApi<List<GalleryItemResponse>>(
-          () => _galleryApiService.getGalleryMockData(page, psId),
+          () => _galleryApiService.getGalleryPhotos(page, psId),
     );
 
     final galleryList = compute(_mapper.toDomain, galleryListResponse,);

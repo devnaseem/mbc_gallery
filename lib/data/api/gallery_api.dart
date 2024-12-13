@@ -22,4 +22,8 @@ abstract class GalleryApi {
   @GET('/wellness-photos/{psId}/photos/{page}')
   Future<List<GalleryItemResponse>> getGalleryMockData(
       @Path('page') int page, @Path('psId') String psId);
+
+  @GET('/wellness-photos/{psId}/photos')
+  Future<List<GalleryItemResponse>> getGalleryPhotos(
+      @Path('page') int page, @Path('psId') String psId);
 }
