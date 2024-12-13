@@ -6,6 +6,7 @@ import 'package:mbc_gallery/presentation/ui/widgets/image_widget.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:mbc_gallery/presentation/ui/widgets/raised_button.dart';
 import 'package:mbc_gallery/presentation/view_model/gallery_view_model.dart';
 
 class GalleryListWidget extends ConsumerWidget {
@@ -13,13 +14,19 @@ class GalleryListWidget extends ConsumerWidget {
   final Function(String) onTap;
   final ScrollController scrollController;
 
-  const GalleryListWidget({super.key, required this.galleryPhotosList, required this.onTap, required this.scrollController});
+  const GalleryListWidget(
+      {super.key,
+      required this.galleryPhotosList,
+      required this.onTap,
+      required this.scrollController});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final isLoadingMore = ref.watch(galleryViewModelProvider.select((state) => state.isLoadingMore));
+    final isLoadingMore = ref
+        .watch(galleryViewModelProvider.select((state) => state.isLoadingMore));
 
     final child = Container(
+      padding: const EdgeInsets.only(left: 16),
       child: CustomScrollView(
         controller: scrollController,
         slivers: [
@@ -31,7 +38,11 @@ class GalleryListWidget extends ConsumerWidget {
               child: Text(
                 "These photos will be stored securely for 1 year. Please check the Privacy and consent for more details.",
                 style: GoogleFonts.openSans(
-                    fontSize: 12, fontWeight: FontWeight.w700, letterSpacing: -0.5, height: 1.5, color: const Color(0xFF51534A)),
+                    fontSize: isSmallScreen(context) ? 12 : 16,
+                    fontWeight: FontWeight.w700,
+                    letterSpacing: -0.5,
+                    height: 1.5,
+                    color: const Color(0xFF51534A)),
               ),
             ),
           ),
@@ -39,7 +50,10 @@ class GalleryListWidget extends ConsumerWidget {
 
           // Gallery Items Slivers
           if (galleryPhotosList.isEmpty)
-            const SliverToBoxAdapter(child: EmptyGalleryWidget())
+            const SliverToBoxAdapter(
+                child: EmptyGalleryWidget(
+              isDateRangeEmpty: true,
+            ))
           else
             ...buildGalleryItems(context),
 
@@ -51,40 +65,40 @@ class GalleryListWidget extends ConsumerWidget {
       ),
     );
 
-    return kIsWeb? Container(
-      margin: const EdgeInsets.all(20),
-      padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
-      decoration: const BoxDecoration(
-        color: Colors.white,
-          boxShadow: [
-            const BoxShadow(
-              color: Color.fromRGBO(0, 0, 0, 0.1),
-              blurRadius: 5.0,
-              spreadRadius: 2.0,
-              offset: Offset(1.0, 1.0),
+    return kIsWeb
+        ? Container(
+            margin: const EdgeInsets.all(20),
+            padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+            decoration: const BoxDecoration(
+              color: Colors.white,
+              boxShadow: [
+                const BoxShadow(
+                  color: Color.fromRGBO(0, 0, 0, 0.1),
+                  blurRadius: 5.0,
+                  spreadRadius: 2.0,
+                  offset: Offset(1.0, 1.0),
+                ),
+              ],
             ),
-          ],
-      ),
-      child: child,
-    ): ClipRRect(
-      borderRadius: const BorderRadius.only(topLeft: Radius.circular(8), topRight: Radius.circular(8)),
-      child: Container(
-        color: ColorConstants.inverseTextColor,
-        child: child
-      ),
-    );
+            child: child,
+          )
+        : ClipRRect(
+            borderRadius: const BorderRadius.only(
+                topLeft: Radius.circular(8), topRight: Radius.circular(8)),
+            child:
+                Container(color: ColorConstants.inverseTextColor, child: child),
+          );
   }
 
-  String getCurrentScreenDimension(BuildContext context){
-    if(isSmallScreen(context))
+  String getCurrentScreenDimension(BuildContext context) {
+    if (isSmallScreen(context))
       return "Small";
-    else  if(isMediumScreen(context))
+    else if (isMediumScreen(context))
       return "Medium";
-    else  if(isLargeScreen(context))
+    else if (isLargeScreen(context))
       return "Large";
     else
       return "Desktop";
-
   }
 
   List<Widget> buildGalleryItems(BuildContext context) {
@@ -105,7 +119,6 @@ class GalleryListWidget extends ConsumerWidget {
 
     final sortedDates = photosByDate.keys.toList()
       ..sort((a, b) => b.compareTo(a));
-
 
     for (final date in sortedDates) {
       final datePhotos = photosByDate[date]!;
@@ -144,12 +157,12 @@ class GalleryListWidget extends ConsumerWidget {
               crossAxisSpacing: 4,
             ),
             delegate: SliverChildBuilderDelegate(
-                  (context, index) {
+              (context, index) {
                 final photoItem = datePhotos[index];
                 final itemHeight = getHeight(context); // Your custom function
 
                 return SizedBox(
-                  height: itemHeight+ (isDesktopScreen(context)? 150:50),
+                  height: itemHeight + (isDesktopScreen(context) ? 150 : 50),
                   child: HoverableCard(
                     galleryItem: photoItem,
                     onTap: onTap,
@@ -165,9 +178,10 @@ class GalleryListWidget extends ConsumerWidget {
       );
     }
 
+    slivers.add(const SliverToBoxAdapter(child: SizedBox(height: 200)));
+
     return slivers;
   }
-
 
 /*  double getHeight(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
@@ -178,16 +192,21 @@ class GalleryListWidget extends ConsumerWidget {
   }*/
 
   double getHeight(BuildContext context) {
-    return isSmallScreen(context)? 145 :  200;
+    if (isDesktopScreen(context)) {
+      return 490;
+    } else if (isLargeScreen(context)) {
+      return 450;
+    } else if (isMediumScreen(context)) {
+      return 320;
+    } else {
+      return 165;
+    }
   }
 
-  double getHorizontalPadding(BuildContext context){
-   return 16;
+  double getHorizontalPadding(BuildContext context) {
+    return 16;
   }
 }
-
-
-
 
 class HoverableCard extends StatefulWidget {
   final GalleryItemModel galleryItem;
@@ -215,10 +234,10 @@ class _HoverableCardState extends State<HoverableCard> {
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback(
-          (_) {
-         if(mounted) {
-           isLiked = widget.isLiked;
-         }
+      (_) {
+        if (mounted) {
+          isLiked = widget.isLiked;
+        }
       },
     );
   }
@@ -226,13 +245,13 @@ class _HoverableCardState extends State<HoverableCard> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: widget.height+(isDesktopScreen(context)? 150:50),
+      height: widget.height + (isDesktopScreen(context) ? 150 : 50),
       child: MouseRegion(
         onEnter: (_) => setState(() => isHovered = true),
         onExit: (_) => setState(() => isHovered = false),
         child: InkWell(
           onTap: () {
-            widget.onTap(widget.galleryItem.photos[2].url);
+            widget.onTap(widget.galleryItem.photos[0].url); //change url here
           },
           child: AnimatedScale(
             scale: isHovered ? 1.04 : 1.0, // Slightly larger scale on hover
@@ -248,16 +267,18 @@ class _HoverableCardState extends State<HoverableCard> {
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(12.0),
                     ),
-                    margin: const EdgeInsets.symmetric(horizontal: 4, vertical: 3),
+                    margin:
+                        const EdgeInsets.symmetric(horizontal: 4, vertical: 3),
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(12.0),
                       child: SizedBox(
-                        height: widget.height- 8,
+                        height: widget.height - 8,
                         child: Hero(
-                          tag: widget.galleryItem.photos[2].url,
+                          tag: widget
+                              .galleryItem.photos[0].url, //change url here
                           child: ImageWidget(
-                            width:  widget.height -8,
-                            height:  widget.height -8 ,
+                            width: widget.height - 8,
+                            height: widget.height - 8,
                             url: widget.galleryItem.photos[0].url,
                             isCover: true,
                             id: widget.galleryItem.id,
@@ -266,18 +287,25 @@ class _HoverableCardState extends State<HoverableCard> {
                       ),
                     ),
                   ),
-                  const SizedBox(height: 6,),
+                  const SizedBox(
+                    height: 6,
+                  ),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 12),
                     child: Row(
                       children: [
-                         InkWell(
-                             onTap: () {
-                               setState(() {
-                                 isLiked = !isLiked;
-                               });
-                             },
-                             child: Icon(isLiked? Icons.favorite : Icons.favorite_outline, color: ColorConstants.primaryBrandColor, size: 20)),
+                        InkWell(
+                            onTap: () {
+                              setState(() {
+                                isLiked = !isLiked;
+                              });
+                            },
+                            child: Icon(
+                                isLiked
+                                    ? Icons.favorite
+                                    : Icons.favorite_outline,
+                                color: ColorConstants.primaryBrandColor,
+                                size: 20)),
                       ],
                     ),
                   ),
@@ -292,18 +320,47 @@ class _HoverableCardState extends State<HoverableCard> {
 }
 
 class EmptyGalleryWidget extends StatelessWidget {
-  const EmptyGalleryWidget({super.key});
+  final bool isDateRangeEmpty;
+  const EmptyGalleryWidget({super.key, required this.isDateRangeEmpty});
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(top: 16),
-      child: Container(
-        color: ColorConstants.inverseTextColor,
-        width: double.infinity,
-        child: Text(
-          "${AppLocalizations.of(context)!.translate("text_no_wellness_status_recorded")}",
-        ),
+    return Container(
+      padding: EdgeInsets.symmetric(horizontal: 56),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          SizedBox(height: 100),
+          Container(
+            color: ColorConstants.inverseTextColor,
+            child: Image.asset("assets/my_path/empty_box.png", scale: .8),
+          ),
+          Text(
+            isDateRangeEmpty
+                ? "Sorry no photos found for this date. Try another date range or clear the filter."
+                : "Sorry no photos found.",
+            textAlign: TextAlign.center,
+            style: GoogleFonts.openSans(
+              fontWeight: FontWeight.w400,
+              fontSize: 18,
+              color: Color(0xFF51534A),
+              height: 1.4,
+            ),
+          ),
+          SizedBox(height: 16),
+          RaisedButton(
+            child: Text(
+              "CLEAR FILTER",
+              style: GoogleFonts.openSans(
+                fontWeight: FontWeight.w700,
+                fontSize: 14,
+                color: Colors.white,
+              ),
+            ),
+            onPressed: () {},
+            color: ColorConstants.primaryBrandColor,
+          )
+        ],
       ),
     );
   }
@@ -346,21 +403,25 @@ class GalleryLoadingWidget extends StatelessWidget {
   }
 }
 
-bool isSmallScreen(BuildContext context) => MediaQuery.of(context).size.width < BreakPoint.small;
+bool isSmallScreen(BuildContext context) =>
+    MediaQuery.of(context).size.width < BreakPoint.small;
 
 bool isMediumScreen(BuildContext context) =>
-    MediaQuery.of(context).size.width >= BreakPoint.small && MediaQuery.of(context).size.width < BreakPoint.medium;
+    MediaQuery.of(context).size.width >= BreakPoint.small &&
+    MediaQuery.of(context).size.width < BreakPoint.medium;
 
-bool isLargeScreen(BuildContext context) => MediaQuery.of(context).size.width >= BreakPoint.medium && MediaQuery.of(context).size.width < BreakPoint.large;
+bool isLargeScreen(BuildContext context) =>
+    MediaQuery.of(context).size.width >= BreakPoint.medium &&
+    MediaQuery.of(context).size.width < BreakPoint.large;
 
-bool isDesktopScreen(BuildContext context) => MediaQuery.of(context).size.width >= BreakPoint.large;
+bool isDesktopScreen(BuildContext context) =>
+    MediaQuery.of(context).size.width >= BreakPoint.large;
 
 int getNumberOfColumns(BuildContext context) {
   if (isDesktopScreen(context)) {
-    return 3;
-  }
-  else if (isLargeScreen(context)) {
-    return 3;
+    return 2;
+  } else if (isLargeScreen(context)) {
+    return 2;
   } else if (isMediumScreen(context)) {
     return 2;
   } else {
@@ -368,8 +429,20 @@ int getNumberOfColumns(BuildContext context) {
   }
 }
 
-abstract class BreakPoint {
+double getSizeBasedOnScreenSize(BuildContext context, double small,
+    double medium, double large, double desktop) {
+  if (isDesktopScreen(context)) {
+    return desktop;
+  } else if (isLargeScreen(context)) {
+    return large;
+  } else if (isMediumScreen(context)) {
+    return medium;
+  } else {
+    return small;
+  }
+}
 
+abstract class BreakPoint {
   static const double small = 600;
 
   static const double medium = 900;
@@ -378,4 +451,3 @@ abstract class BreakPoint {
 
   static const double desktop = 1200;
 }
-
