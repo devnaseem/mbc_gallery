@@ -43,6 +43,7 @@ class GalleryViewModel extends _$GalleryViewModel {
       );
     }, (error) {
       state = state.copyWith(
+        currentPage: page,
         galleryList: AsyncError(error, error.stackTrace),
         isLoadingMore: false,
       );

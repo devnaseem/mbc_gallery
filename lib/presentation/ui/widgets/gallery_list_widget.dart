@@ -18,6 +18,10 @@ class GalleryListWidget extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final isLoadingMore = ref.watch(galleryViewModelProvider.select((state) => state.isLoadingMore));
+    final shouldLoadmore = ref.watch(galleryViewModelProvider.select((state) => state.shouldLoadMore));
+
+    print("galleryPhotosList ${galleryPhotosList.length}");
+
 
     final child = Container(
       child: CustomScrollView(
@@ -301,8 +305,8 @@ class EmptyGalleryWidget extends StatelessWidget {
       child: Container(
         color: ColorConstants.inverseTextColor,
         width: double.infinity,
-        child: Text(
-          "${AppLocalizations.of(context)!.translate("text_no_wellness_status_recorded")}",
+        child: const Text(
+          "No Wellness status recorded",
         ),
       ),
     );
