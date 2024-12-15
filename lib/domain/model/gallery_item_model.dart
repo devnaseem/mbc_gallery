@@ -2,7 +2,6 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'gallery_item_model.freezed.dart';
 
-
 @freezed
 class GalleryItemModel with _$GalleryItemModel {
   const factory GalleryItemModel({
@@ -10,9 +9,8 @@ class GalleryItemModel with _$GalleryItemModel {
     required DateTime createdAt,
     required String visitId,
     required List<PhotoModel> photos,
-   required Map<String, LikeDetailModel> likes,
+    required Map<String, LikeDetailModel> likes,
   }) = _GalleryItemModel;
-
 }
 
 @freezed
@@ -21,7 +19,6 @@ class PhotoModel with _$PhotoModel {
     required String url,
     required ResolutionModel resolution,
   }) = _PhotoModel;
-
 }
 
 @freezed
@@ -33,13 +30,12 @@ class ResolutionModel with _$ResolutionModel {
     int? width,
     int? height,
   }) = _ResolutionModel;
-
 }
 
 @freezed
 class LikeDetailModel with _$LikeDetailModel {
   const factory LikeDetailModel({
     required DateTime likeAt,
+    required String name,
   }) = _LikeDetailModel;
-
 }

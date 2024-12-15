@@ -15,7 +15,9 @@ GalleryRepositoryImpl galleryRepositoryImpl(GalleryRepositoryImplRef ref) {
   return GalleryRepositoryImpl(galleryApiService, mapper);
 }
 
-class GalleryRepositoryImpl with DioExceptionMixin implements IGalleryRepository {
+class GalleryRepositoryImpl
+    with DioExceptionMixin
+    implements IGalleryRepository {
   final GalleryApi _galleryApiService;
   final GalleryMapper _mapper;
 
@@ -24,10 +26,28 @@ class GalleryRepositoryImpl with DioExceptionMixin implements IGalleryRepository
   @override
   Future<List<GalleryItemModel>> getGalleryImages(String psId, int page) async {
     final galleryListResponse = await callApi<List<GalleryItemResponse>>(
-          () => _galleryApiService.getGalleryPhotos(page, psId),
+      () => _galleryApiService.getGalleryMockData(page, psId),
     );
 
-    final galleryList = compute(_mapper.toDomain, galleryListResponse,);
+    final galleryList = compute(
+      _mapper.toDomain,
+      galleryListResponse,
+    );
+    return galleryList;
+  }
+
+  @override
+  Future<List<GalleryItemModel>> getGalleryImagesForDateRange(
+      String psId, int page, String startDate, String endDate) async {
+    final galleryListResponse = await callApi<List<GalleryItemResponse>>(
+      () => _galleryApiService.getGalleryPhotosForDateRange(
+          page, psId, startDate, endDate),
+    );
+
+    final galleryList = compute(
+      _mapper.toDomain,
+      galleryListResponse,
+    );
     return galleryList;
   }
 }

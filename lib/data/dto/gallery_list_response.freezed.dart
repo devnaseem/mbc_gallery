@@ -733,8 +733,10 @@ LikeDetail _$LikeDetailFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$LikeDetail {
-  @JsonKey(name: "likeAt")
-  DateTime get likeAt => throw _privateConstructorUsedError;
+  @JsonKey(name: "name")
+  String get name => throw _privateConstructorUsedError;
+  @JsonKey(name: "likedAt")
+  DateTime get likedAt => throw _privateConstructorUsedError;
 
   /// Serializes this LikeDetail to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -752,7 +754,9 @@ abstract class $LikeDetailCopyWith<$Res> {
           LikeDetail value, $Res Function(LikeDetail) then) =
       _$LikeDetailCopyWithImpl<$Res, LikeDetail>;
   @useResult
-  $Res call({@JsonKey(name: "likeAt") DateTime likeAt});
+  $Res call(
+      {@JsonKey(name: "name") String name,
+      @JsonKey(name: "likedAt") DateTime likedAt});
 }
 
 /// @nodoc
@@ -770,12 +774,17 @@ class _$LikeDetailCopyWithImpl<$Res, $Val extends LikeDetail>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? likeAt = null,
+    Object? name = null,
+    Object? likedAt = null,
   }) {
     return _then(_value.copyWith(
-      likeAt: null == likeAt
-          ? _value.likeAt
-          : likeAt // ignore: cast_nullable_to_non_nullable
+      name: null == name
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String,
+      likedAt: null == likedAt
+          ? _value.likedAt
+          : likedAt // ignore: cast_nullable_to_non_nullable
               as DateTime,
     ) as $Val);
   }
@@ -789,7 +798,9 @@ abstract class _$$LikeDetailImplCopyWith<$Res>
       __$$LikeDetailImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({@JsonKey(name: "likeAt") DateTime likeAt});
+  $Res call(
+      {@JsonKey(name: "name") String name,
+      @JsonKey(name: "likedAt") DateTime likedAt});
 }
 
 /// @nodoc
@@ -805,12 +816,17 @@ class __$$LikeDetailImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? likeAt = null,
+    Object? name = null,
+    Object? likedAt = null,
   }) {
     return _then(_$LikeDetailImpl(
-      likeAt: null == likeAt
-          ? _value.likeAt
-          : likeAt // ignore: cast_nullable_to_non_nullable
+      name: null == name
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String,
+      likedAt: null == likedAt
+          ? _value.likedAt
+          : likedAt // ignore: cast_nullable_to_non_nullable
               as DateTime,
     ));
   }
@@ -819,18 +835,23 @@ class __$$LikeDetailImplCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$LikeDetailImpl implements _LikeDetail {
-  const _$LikeDetailImpl({@JsonKey(name: "likeAt") required this.likeAt});
+  const _$LikeDetailImpl(
+      {@JsonKey(name: "name") required this.name,
+      @JsonKey(name: "likedAt") required this.likedAt});
 
   factory _$LikeDetailImpl.fromJson(Map<String, dynamic> json) =>
       _$$LikeDetailImplFromJson(json);
 
   @override
-  @JsonKey(name: "likeAt")
-  final DateTime likeAt;
+  @JsonKey(name: "name")
+  final String name;
+  @override
+  @JsonKey(name: "likedAt")
+  final DateTime likedAt;
 
   @override
   String toString() {
-    return 'LikeDetail(likeAt: $likeAt)';
+    return 'LikeDetail(name: $name, likedAt: $likedAt)';
   }
 
   @override
@@ -838,12 +859,13 @@ class _$LikeDetailImpl implements _LikeDetail {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$LikeDetailImpl &&
-            (identical(other.likeAt, likeAt) || other.likeAt == likeAt));
+            (identical(other.name, name) || other.name == name) &&
+            (identical(other.likedAt, likedAt) || other.likedAt == likedAt));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(runtimeType, likeAt);
+  int get hashCode => Object.hash(runtimeType, name, likedAt);
 
   /// Create a copy of LikeDetail
   /// with the given fields replaced by the non-null parameter values.
@@ -863,15 +885,19 @@ class _$LikeDetailImpl implements _LikeDetail {
 
 abstract class _LikeDetail implements LikeDetail {
   const factory _LikeDetail(
-          {@JsonKey(name: "likeAt") required final DateTime likeAt}) =
+          {@JsonKey(name: "name") required final String name,
+          @JsonKey(name: "likedAt") required final DateTime likedAt}) =
       _$LikeDetailImpl;
 
   factory _LikeDetail.fromJson(Map<String, dynamic> json) =
       _$LikeDetailImpl.fromJson;
 
   @override
-  @JsonKey(name: "likeAt")
-  DateTime get likeAt;
+  @JsonKey(name: "name")
+  String get name;
+  @override
+  @JsonKey(name: "likedAt")
+  DateTime get likedAt;
 
   /// Create a copy of LikeDetail
   /// with the given fields replaced by the non-null parameter values.

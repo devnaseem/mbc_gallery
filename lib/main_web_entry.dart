@@ -6,7 +6,6 @@ import 'dart:js_util' as js_util;
 import 'dart:convert';
 import 'package:js/js.dart';
 
-
 import 'package:mbc_gallery/main_web.dart';
 
 void main() {
@@ -21,7 +20,8 @@ class GalleryWeb extends StatelessWidget {
   static InitialConfig getInitialConfig() {
     try {
       // Use dart:js_util to access the global JS variable this is for inital data from angular
-      final dynamic data = js_util.getProperty(html.window, 'flutterInitialData');
+      final dynamic data =
+          js_util.getProperty(html.window, 'flutterInitialData');
       if (data != null && data is Map) {
         // If data is a Map, convert it to InitialConfig
         print("initialdata : $data");
@@ -50,7 +50,8 @@ class GalleryWeb extends StatelessWidget {
       allowInterop((dynamic updatedData) {
         try {
           final parsedData = jsonDecode(updatedData) as Map<String, dynamic>;
-          FlutterDataStore.instance.updateConfig(InitialConfig.fromMap(parsedData));
+          FlutterDataStore.instance
+              .updateConfig(InitialConfig.fromMap(parsedData));
         } catch (e) {
           print('Error updating Flutter data: $e');
         }
@@ -120,7 +121,8 @@ class InitialConfig {
 // Singleton to manage Flutter data updates
 class FlutterDataStore {
   FlutterDataStore._privateConstructor();
-  static final FlutterDataStore instance = FlutterDataStore._privateConstructor();
+  static final FlutterDataStore instance =
+      FlutterDataStore._privateConstructor();
 
   final _configController = StreamController<InitialConfig>.broadcast();
   Stream<InitialConfig> get configStream => _configController.stream;

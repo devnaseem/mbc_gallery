@@ -26,8 +26,9 @@ class ImageWidget extends StatelessWidget {
       height: height,
       width: width,
       placeholder: MemoryImage(kTransparentImage),
-      image: CachedNetworkImageProvider(url,
-      cacheKey: id,
+      image: CachedNetworkImageProvider(
+        url,
+        cacheKey: id,
       ),
     );
   }

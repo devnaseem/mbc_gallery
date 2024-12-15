@@ -2,6 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:mbc_common/mbc_common.dart';
 import 'package:mbc_gallery/domain/model/gallery_item_model.dart';
+import 'package:mbc_gallery/presentation/ui/widgets/gallery_utils.dart';
 import 'package:mbc_gallery/presentation/ui/widgets/image_widget.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
@@ -22,11 +23,10 @@ class GalleryListWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final isLoadingMore = ref.watch(galleryViewModelProvider.select((state) => state.isLoadingMore));
-    final shouldLoadmore = ref.watch(galleryViewModelProvider.select((state) => state.shouldLoadMore));
+    final isLoadingMore = ref
+        .watch(galleryViewModelProvider.select((state) => state.isLoadingMore));
 
     print("galleryPhotosList ${galleryPhotosList.length}");
-
 
     final child = Container(
       padding: const EdgeInsets.only(left: 16),
@@ -185,14 +185,6 @@ class GalleryListWidget extends ConsumerWidget {
 
     return slivers;
   }
-
-/*  double getHeight(BuildContext context) {
-    final screenWidth = MediaQuery.of(context).size.width;
-    final horizontalPaddingOffset = isSmallScreen(context)? 27: isMediumScreen(context) ? 12 : 0;
-    final desktopScreenPadding = screenWidth * 0.2;
-    final viewPortWidth = isDesktopScreen(context)? (screenWidth - desktopScreenPadding) : screenWidth;
-    return (viewPortWidth/2)-(getHorizontalPadding(context) * 2) - horizontalPaddingOffset;
-  }*/
 
   double getHeight(BuildContext context) {
     if (isDesktopScreen(context)) {
@@ -403,53 +395,4 @@ class GalleryLoadingWidget extends StatelessWidget {
       ),
     );
   }
-}
-
-bool isSmallScreen(BuildContext context) =>
-    MediaQuery.of(context).size.width < BreakPoint.small;
-
-bool isMediumScreen(BuildContext context) =>
-    MediaQuery.of(context).size.width >= BreakPoint.small &&
-    MediaQuery.of(context).size.width < BreakPoint.medium;
-
-bool isLargeScreen(BuildContext context) =>
-    MediaQuery.of(context).size.width >= BreakPoint.medium &&
-    MediaQuery.of(context).size.width < BreakPoint.large;
-
-bool isDesktopScreen(BuildContext context) =>
-    MediaQuery.of(context).size.width >= BreakPoint.large;
-
-int getNumberOfColumns(BuildContext context) {
-  if (isDesktopScreen(context)) {
-    return 2;
-  } else if (isLargeScreen(context)) {
-    return 2;
-  } else if (isMediumScreen(context)) {
-    return 2;
-  } else {
-    return 2;
-  }
-}
-
-double getSizeBasedOnScreenSize(BuildContext context, double small,
-    double medium, double large, double desktop) {
-  if (isDesktopScreen(context)) {
-    return desktop;
-  } else if (isLargeScreen(context)) {
-    return large;
-  } else if (isMediumScreen(context)) {
-    return medium;
-  } else {
-    return small;
-  }
-}
-
-abstract class BreakPoint {
-  static const double small = 600;
-
-  static const double medium = 900;
-
-  static const double large = 1200;
-
-  static const double desktop = 1200;
 }

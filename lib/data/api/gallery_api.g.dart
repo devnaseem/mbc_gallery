@@ -13,7 +13,9 @@ class _GalleryApi implements GalleryApi {
     this._dio, {
     this.baseUrl,
     this.errorLogger,
-  });
+  }) {
+    baseUrl ??= 'https://nascode-338705814149.asia-south2.run.app/api/v1/';
+  }
 
   final Dio _dio;
 
@@ -77,6 +79,47 @@ class _GalleryApi implements GalleryApi {
         .compose(
           _dio.options,
           '/wellness-photos/${psId}/photos',
+          queryParameters: queryParameters,
+          data: _data,
+        )
+        .copyWith(
+            baseUrl: _combineBaseUrls(
+          _dio.options.baseUrl,
+          baseUrl,
+        )));
+    final _result = await _dio.fetch<List<dynamic>>(_options);
+    late List<GalleryItemResponse> _value;
+    try {
+      _value = await compute(
+        deserializeGalleryItemResponseList,
+        _result.data!.cast<Map<String, dynamic>>(),
+      );
+    } on Object catch (e, s) {
+      errorLogger?.logError(e, s, _options);
+      rethrow;
+    }
+    return _value;
+  }
+
+  @override
+  Future<List<GalleryItemResponse>> getGalleryPhotosForDateRange(
+    int page,
+    String psId,
+    String startDate,
+    String endDate,
+  ) async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    const Map<String, dynamic>? _data = null;
+    final _options = _setStreamType<List<GalleryItemResponse>>(Options(
+      method: 'GET',
+      headers: _headers,
+      extra: _extra,
+    )
+        .compose(
+          _dio.options,
+          '/wellness-photos/${psId}/photos/date-range/${startDate}/${endDate}',
           queryParameters: queryParameters,
           data: _data,
         )

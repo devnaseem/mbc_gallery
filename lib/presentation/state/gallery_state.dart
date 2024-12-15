@@ -11,5 +11,28 @@ abstract class GalleryState with _$GalleryState {
     @Default(1) int currentPage,
     @Default(false) bool isLoadingMore,
     @Default(true) bool shouldLoadMore,
+    @Default(DateFilter.allTime) DateFilter selectedFilter,
+    DateTime? startDate,
+    DateTime? endDate,
   }) = _GalleryState;
+
+  factory GalleryState.initial() => GalleryState(
+        startDate: DateTime.now().subtract(Duration(days: 365)),
+        endDate: DateTime.now(),
+      );
+}
+
+enum DateFilter {
+  allTime("All Time"),
+  customDate("Custom Date");
+
+  final String? value;
+  const DateFilter([this.value]);
+
+  static DateFilter fromString(String filterType) {
+    return DateFilter.values.firstWhere(
+      (e) => e.value == filterType,
+      orElse: () => DateFilter.allTime,
+    );
+  }
 }

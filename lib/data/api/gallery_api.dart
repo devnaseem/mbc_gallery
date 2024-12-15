@@ -13,9 +13,8 @@ final galleryApiProvider = Provider<GalleryApi>((ref) {
 });
 
 @RestApi(
-  parser: Parser.FlutterCompute,
-  // baseUrl: "https://nascode-338705814149.asia-south2.run.app/api/v1/"
-)
+    parser: Parser.FlutterCompute,
+    baseUrl: "https://nascode-338705814149.asia-south2.run.app/api/v1/")
 abstract class GalleryApi {
   factory GalleryApi(Dio dio) => _GalleryApi(dio);
 
@@ -26,4 +25,11 @@ abstract class GalleryApi {
   @GET('/wellness-photos/{psId}/photos')
   Future<List<GalleryItemResponse>> getGalleryPhotos(
       @Path('page') int page, @Path('psId') String psId);
+
+  @GET('/wellness-photos/{psId}/photos/date-range/{startDate}/{endDate}')
+  Future<List<GalleryItemResponse>> getGalleryPhotosForDateRange(
+      @Path('page') int page,
+      @Path('psId') String psId,
+      @Path('startDate') String startDate,
+      @Path('endDate') String endDate);
 }

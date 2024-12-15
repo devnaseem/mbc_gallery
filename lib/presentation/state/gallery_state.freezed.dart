@@ -21,6 +21,9 @@ mixin _$GalleryState {
   int get currentPage => throw _privateConstructorUsedError;
   bool get isLoadingMore => throw _privateConstructorUsedError;
   bool get shouldLoadMore => throw _privateConstructorUsedError;
+  DateFilter get selectedFilter => throw _privateConstructorUsedError;
+  DateTime? get startDate => throw _privateConstructorUsedError;
+  DateTime? get endDate => throw _privateConstructorUsedError;
 
   /// Create a copy of GalleryState
   /// with the given fields replaced by the non-null parameter values.
@@ -39,7 +42,10 @@ abstract class $GalleryStateCopyWith<$Res> {
       {AsyncValue<List<GalleryItemModel>> galleryList,
       int currentPage,
       bool isLoadingMore,
-      bool shouldLoadMore});
+      bool shouldLoadMore,
+      DateFilter selectedFilter,
+      DateTime? startDate,
+      DateTime? endDate});
 }
 
 /// @nodoc
@@ -61,6 +67,9 @@ class _$GalleryStateCopyWithImpl<$Res, $Val extends GalleryState>
     Object? currentPage = null,
     Object? isLoadingMore = null,
     Object? shouldLoadMore = null,
+    Object? selectedFilter = null,
+    Object? startDate = freezed,
+    Object? endDate = freezed,
   }) {
     return _then(_value.copyWith(
       galleryList: null == galleryList
@@ -79,6 +88,18 @@ class _$GalleryStateCopyWithImpl<$Res, $Val extends GalleryState>
           ? _value.shouldLoadMore
           : shouldLoadMore // ignore: cast_nullable_to_non_nullable
               as bool,
+      selectedFilter: null == selectedFilter
+          ? _value.selectedFilter
+          : selectedFilter // ignore: cast_nullable_to_non_nullable
+              as DateFilter,
+      startDate: freezed == startDate
+          ? _value.startDate
+          : startDate // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
+      endDate: freezed == endDate
+          ? _value.endDate
+          : endDate // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
     ) as $Val);
   }
 }
@@ -95,7 +116,10 @@ abstract class _$$GalleryStateImplCopyWith<$Res>
       {AsyncValue<List<GalleryItemModel>> galleryList,
       int currentPage,
       bool isLoadingMore,
-      bool shouldLoadMore});
+      bool shouldLoadMore,
+      DateFilter selectedFilter,
+      DateTime? startDate,
+      DateTime? endDate});
 }
 
 /// @nodoc
@@ -115,6 +139,9 @@ class __$$GalleryStateImplCopyWithImpl<$Res>
     Object? currentPage = null,
     Object? isLoadingMore = null,
     Object? shouldLoadMore = null,
+    Object? selectedFilter = null,
+    Object? startDate = freezed,
+    Object? endDate = freezed,
   }) {
     return _then(_$GalleryStateImpl(
       galleryList: null == galleryList
@@ -133,6 +160,18 @@ class __$$GalleryStateImplCopyWithImpl<$Res>
           ? _value.shouldLoadMore
           : shouldLoadMore // ignore: cast_nullable_to_non_nullable
               as bool,
+      selectedFilter: null == selectedFilter
+          ? _value.selectedFilter
+          : selectedFilter // ignore: cast_nullable_to_non_nullable
+              as DateFilter,
+      startDate: freezed == startDate
+          ? _value.startDate
+          : startDate // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
+      endDate: freezed == endDate
+          ? _value.endDate
+          : endDate // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
     ));
   }
 }
@@ -144,7 +183,10 @@ class _$GalleryStateImpl implements _GalleryState {
       {this.galleryList = const AsyncLoading(),
       this.currentPage = 1,
       this.isLoadingMore = false,
-      this.shouldLoadMore = true});
+      this.shouldLoadMore = true,
+      this.selectedFilter = DateFilter.allTime,
+      this.startDate,
+      this.endDate});
 
   @override
   @JsonKey()
@@ -158,10 +200,17 @@ class _$GalleryStateImpl implements _GalleryState {
   @override
   @JsonKey()
   final bool shouldLoadMore;
+  @override
+  @JsonKey()
+  final DateFilter selectedFilter;
+  @override
+  final DateTime? startDate;
+  @override
+  final DateTime? endDate;
 
   @override
   String toString() {
-    return 'GalleryState(galleryList: $galleryList, currentPage: $currentPage, isLoadingMore: $isLoadingMore, shouldLoadMore: $shouldLoadMore)';
+    return 'GalleryState(galleryList: $galleryList, currentPage: $currentPage, isLoadingMore: $isLoadingMore, shouldLoadMore: $shouldLoadMore, selectedFilter: $selectedFilter, startDate: $startDate, endDate: $endDate)';
   }
 
   @override
@@ -176,12 +225,17 @@ class _$GalleryStateImpl implements _GalleryState {
             (identical(other.isLoadingMore, isLoadingMore) ||
                 other.isLoadingMore == isLoadingMore) &&
             (identical(other.shouldLoadMore, shouldLoadMore) ||
-                other.shouldLoadMore == shouldLoadMore));
+                other.shouldLoadMore == shouldLoadMore) &&
+            (identical(other.selectedFilter, selectedFilter) ||
+                other.selectedFilter == selectedFilter) &&
+            (identical(other.startDate, startDate) ||
+                other.startDate == startDate) &&
+            (identical(other.endDate, endDate) || other.endDate == endDate));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType, galleryList, currentPage, isLoadingMore, shouldLoadMore);
+  int get hashCode => Object.hash(runtimeType, galleryList, currentPage,
+      isLoadingMore, shouldLoadMore, selectedFilter, startDate, endDate);
 
   /// Create a copy of GalleryState
   /// with the given fields replaced by the non-null parameter values.
@@ -197,7 +251,10 @@ abstract class _GalleryState implements GalleryState {
       {final AsyncValue<List<GalleryItemModel>> galleryList,
       final int currentPage,
       final bool isLoadingMore,
-      final bool shouldLoadMore}) = _$GalleryStateImpl;
+      final bool shouldLoadMore,
+      final DateFilter selectedFilter,
+      final DateTime? startDate,
+      final DateTime? endDate}) = _$GalleryStateImpl;
 
   @override
   AsyncValue<List<GalleryItemModel>> get galleryList;
@@ -207,6 +264,12 @@ abstract class _GalleryState implements GalleryState {
   bool get isLoadingMore;
   @override
   bool get shouldLoadMore;
+  @override
+  DateFilter get selectedFilter;
+  @override
+  DateTime? get startDate;
+  @override
+  DateTime? get endDate;
 
   /// Create a copy of GalleryState
   /// with the given fields replaced by the non-null parameter values.

@@ -617,6 +617,7 @@ abstract class _ResolutionModel implements ResolutionModel {
 /// @nodoc
 mixin _$LikeDetailModel {
   DateTime get likeAt => throw _privateConstructorUsedError;
+  String get name => throw _privateConstructorUsedError;
 
   /// Create a copy of LikeDetailModel
   /// with the given fields replaced by the non-null parameter values.
@@ -631,7 +632,7 @@ abstract class $LikeDetailModelCopyWith<$Res> {
           LikeDetailModel value, $Res Function(LikeDetailModel) then) =
       _$LikeDetailModelCopyWithImpl<$Res, LikeDetailModel>;
   @useResult
-  $Res call({DateTime likeAt});
+  $Res call({DateTime likeAt, String name});
 }
 
 /// @nodoc
@@ -650,12 +651,17 @@ class _$LikeDetailModelCopyWithImpl<$Res, $Val extends LikeDetailModel>
   @override
   $Res call({
     Object? likeAt = null,
+    Object? name = null,
   }) {
     return _then(_value.copyWith(
       likeAt: null == likeAt
           ? _value.likeAt
           : likeAt // ignore: cast_nullable_to_non_nullable
               as DateTime,
+      name: null == name
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String,
     ) as $Val);
   }
 }
@@ -668,7 +674,7 @@ abstract class _$$LikeDetailModelImplCopyWith<$Res>
       __$$LikeDetailModelImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({DateTime likeAt});
+  $Res call({DateTime likeAt, String name});
 }
 
 /// @nodoc
@@ -685,12 +691,17 @@ class __$$LikeDetailModelImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? likeAt = null,
+    Object? name = null,
   }) {
     return _then(_$LikeDetailModelImpl(
       likeAt: null == likeAt
           ? _value.likeAt
           : likeAt // ignore: cast_nullable_to_non_nullable
               as DateTime,
+      name: null == name
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -698,14 +709,16 @@ class __$$LikeDetailModelImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$LikeDetailModelImpl implements _LikeDetailModel {
-  const _$LikeDetailModelImpl({required this.likeAt});
+  const _$LikeDetailModelImpl({required this.likeAt, required this.name});
 
   @override
   final DateTime likeAt;
+  @override
+  final String name;
 
   @override
   String toString() {
-    return 'LikeDetailModel(likeAt: $likeAt)';
+    return 'LikeDetailModel(likeAt: $likeAt, name: $name)';
   }
 
   @override
@@ -713,11 +726,12 @@ class _$LikeDetailModelImpl implements _LikeDetailModel {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$LikeDetailModelImpl &&
-            (identical(other.likeAt, likeAt) || other.likeAt == likeAt));
+            (identical(other.likeAt, likeAt) || other.likeAt == likeAt) &&
+            (identical(other.name, name) || other.name == name));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, likeAt);
+  int get hashCode => Object.hash(runtimeType, likeAt, name);
 
   /// Create a copy of LikeDetailModel
   /// with the given fields replaced by the non-null parameter values.
@@ -730,11 +744,14 @@ class _$LikeDetailModelImpl implements _LikeDetailModel {
 }
 
 abstract class _LikeDetailModel implements LikeDetailModel {
-  const factory _LikeDetailModel({required final DateTime likeAt}) =
-      _$LikeDetailModelImpl;
+  const factory _LikeDetailModel(
+      {required final DateTime likeAt,
+      required final String name}) = _$LikeDetailModelImpl;
 
   @override
   DateTime get likeAt;
+  @override
+  String get name;
 
   /// Create a copy of LikeDetailModel
   /// with the given fields replaced by the non-null parameter values.

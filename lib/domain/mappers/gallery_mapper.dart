@@ -29,7 +29,10 @@ class GalleryMapper {
                 zoom: photoItem.resolution.zoom,
               )))
           .toList(),
-      likes: photo.likes.map((key, value) => MapEntry(key, LikeDetailModel(likeAt: value.likeAt))),
+      likes: photo.likes
+          .map((key, value) => MapEntry(
+              key, LikeDetailModel(likeAt: value.likedAt, name: value.name)))
+          .cast(),
     );
   }
 }

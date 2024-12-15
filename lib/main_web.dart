@@ -10,7 +10,6 @@ import 'package:mbc_core/mbc_core.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
 class GalleryAppWeb extends StatelessWidget {
-
   final String? accessToken;
   final String? identityToken;
   final String? systemId;
@@ -23,7 +22,6 @@ class GalleryAppWeb extends StatelessWidget {
     required this.systemId,
     required this.env,
   });
-
 
   @override
   Widget build(BuildContext context) {
@@ -79,7 +77,8 @@ class _GalleryRootAppWebState extends ConsumerState<GalleryRootAppWeb> {
     _initializeProviders(widget.env, widget.accessToken, widget.identityToken);
 
     // Listen to FlutterDataStore updates
-    _configSubscription = FlutterDataStore.instance.configStream.listen((config) {
+    _configSubscription =
+        FlutterDataStore.instance.configStream.listen((config) {
       setState(() {
         // Update providers on config change
         _initializeProviders(
@@ -91,9 +90,11 @@ class _GalleryRootAppWebState extends ConsumerState<GalleryRootAppWeb> {
     });
   }
 
-  void _initializeProviders(Flavor flavor, String? accessToken, String? identityToken) {
+  void _initializeProviders(
+      Flavor flavor, String? accessToken, String? identityToken) {
     ref.read(flavorProvider.notifier).state = flavor;
-    ref.read(tokenServiceProvider(ref.read(networkServiceProvider)))
+    ref
+        .read(tokenServiceProvider(ref.read(networkServiceProvider)))
         .storeAccessToken(accessToken ?? '', "", identityToken ?? '');
   }
 

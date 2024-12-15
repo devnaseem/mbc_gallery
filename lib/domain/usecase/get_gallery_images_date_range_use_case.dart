@@ -4,24 +4,25 @@ import 'package:mbc_gallery/data/repository/igallery_repository.dart';
 import 'package:mbc_gallery/domain/model/gallery_item_model.dart';
 import 'package:multiple_result/multiple_result.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-part 'get_gallery_images_use_case.g.dart';
+part 'get_gallery_images_date_range_use_case.g.dart';
 
 @Riverpod(keepAlive: true)
-GetGalleryImagesUseCase getGalleryImagesUseCase(
-    GetGalleryImagesUseCaseRef ref) {
+GetGalleryImagesDateRangeUseCase getGalleryImagesDateRangeUseCase(
+    GetGalleryImagesDateRangeUseCaseRef ref) {
   final galleryRepository = ref.watch(galleryRepositoryImplProvider);
-  return GetGalleryImagesUseCase(galleryRepository);
+  return GetGalleryImagesDateRangeUseCase(galleryRepository);
 }
 
-class GetGalleryImagesUseCase {
+class GetGalleryImagesDateRangeUseCase {
   final IGalleryRepository _galleryRepository;
 
-  const GetGalleryImagesUseCase(this._galleryRepository);
+  const GetGalleryImagesDateRangeUseCase(this._galleryRepository);
 
   Future<Result<List<GalleryItemModel>, Failure>> call(
-      String psId, int page) async {
+      String psId, int page, String startDate, String endDate) async {
     try {
-      final galleryList = await _galleryRepository.getGalleryImages(psId, page);
+      final galleryList = await _galleryRepository.getGalleryImagesForDateRange(
+          psId, page, startDate, endDate);
       return Success(galleryList);
     } catch (error, stackTrace) {
       return Error(Failure(

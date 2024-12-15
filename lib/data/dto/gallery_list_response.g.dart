@@ -62,10 +62,12 @@ Map<String, dynamic> _$$ResolutionImplToJson(_$ResolutionImpl instance) =>
 
 _$LikeDetailImpl _$$LikeDetailImplFromJson(Map<String, dynamic> json) =>
     _$LikeDetailImpl(
-      likeAt: DateTime.parse(json['likeAt'] as String),
+      name: json['name'] as String,
+      likedAt: DateTime.parse(json['likedAt'] as String),
     );
 
 Map<String, dynamic> _$$LikeDetailImplToJson(_$LikeDetailImpl instance) =>
     <String, dynamic>{
-      'likeAt': instance.likeAt.toIso8601String(),
+      'name': instance.name,
+      'likedAt': instance.likedAt.toIso8601String(),
     };
