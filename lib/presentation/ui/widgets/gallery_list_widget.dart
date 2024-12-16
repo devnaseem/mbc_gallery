@@ -2,6 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:mbc_common/mbc_common.dart';
 import 'package:mbc_gallery/domain/model/gallery_item_model.dart';
+import 'package:mbc_gallery/presentation/state/gallery_state.dart';
 import 'package:mbc_gallery/presentation/ui/widgets/gallery_utils.dart';
 import 'package:mbc_gallery/presentation/ui/widgets/image_widget.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -28,6 +29,14 @@ class GalleryListWidget extends ConsumerWidget {
     final isLoadingMore = ref
         .watch(galleryViewModelProvider.select((state) => state.isLoadingMore));
 
+    final startDate =
+        ref.watch(galleryViewModelProvider.select((state) => state.startDate));
+    final endDate =
+        ref.watch(galleryViewModelProvider.select((state) => state.endDate));
+
+    final selectedFilter = ref.watch(
+        galleryViewModelProvider.select((state) => state.selectedFilter));
+
     print("galleryPhotosList ${galleryPhotosList.length}");
 
     final child = Container(
@@ -37,20 +46,49 @@ class GalleryListWidget extends ConsumerWidget {
         slivers: [
           const SliverToBoxAdapter(child: SizedBox(height: 32)),
 
-          SliverPadding(
-            padding: const EdgeInsets.symmetric(horizontal: 16.0),
-            sliver: SliverToBoxAdapter(
-              child: Text(
-                "These photos will be stored securely for 1 year. Please check the Privacy and consent for more details.",
-                style: GoogleFonts.openSans(
-                    fontSize: isSmallScreen(context) ? 12 : 16,
-                    fontWeight: FontWeight.w700,
-                    letterSpacing: -0.5,
-                    height: 1.5,
-                    color: const Color(0xFF51534A)),
-              ),
-            ),
-          ),
+          selectedFilter == DateFilter.allTime
+              ? SliverPadding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                  sliver: SliverToBoxAdapter(
+                    child: Text(
+                      "These photos will be stored securely for 1 year. Please check the Privacy and consent for more details.",
+                      style: GoogleFonts.openSans(
+                          fontSize: isSmallScreen(context) ? 12 : 16,
+                          fontWeight: FontWeight.w700,
+                          letterSpacing: -0.5,
+                          height: 1.5,
+                          color: const Color(0xFF51534A)),
+                    ),
+                  ),
+                )
+              : SliverPadding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                  sliver: SliverToBoxAdapter(
+                    child: Align(
+                      alignment: Alignment.centerLeft,
+                      child: Chip(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(24),
+                        ),
+                        deleteIconColor: ColorConstants.primaryBrandColor,
+                        backgroundColor: Colors.white,
+                        onDeleted: () {
+                          ref
+                              .read(galleryViewModelProvider.notifier)
+                              .resetFilters(systemId);
+                        },
+                        label: Text(
+                            "Photos from: ${DateFormat('MMMM d, y').format(startDate!)} to ${DateFormat('MMMM d, y').format(endDate!)}",
+                            style: GoogleFonts.openSans(
+                                fontSize: isSmallScreen(context) ? 12 : 16,
+                                fontWeight: FontWeight.w700,
+                                letterSpacing: -0.5,
+                                height: 1.5,
+                                color: const Color(0xFF51534A))),
+                      ),
+                    ),
+                  ),
+                ),
           const SliverToBoxAdapter(child: SizedBox(height: 24)),
 
           // Gallery Items Slivers
