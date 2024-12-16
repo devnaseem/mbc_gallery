@@ -30,6 +30,8 @@ mixin _$GalleryItemResponse {
   Map<String, LikeDetail> get likes => throw _privateConstructorUsedError;
   @JsonKey(name: "createdAt")
   DateTime get createdAt => throw _privateConstructorUsedError;
+  @JsonKey(name: "visitId")
+  String get visitId => throw _privateConstructorUsedError;
 
   /// Serializes this GalleryItemResponse to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -52,7 +54,8 @@ abstract class $GalleryItemResponseCopyWith<$Res> {
       @JsonKey(name: "photos") List<Photo> photos,
       @JsonKey(name: "portrait") bool portrait,
       @JsonKey(name: "likes") Map<String, LikeDetail> likes,
-      @JsonKey(name: "createdAt") DateTime createdAt});
+      @JsonKey(name: "createdAt") DateTime createdAt,
+      @JsonKey(name: "visitId") String visitId});
 }
 
 /// @nodoc
@@ -75,6 +78,7 @@ class _$GalleryItemResponseCopyWithImpl<$Res, $Val extends GalleryItemResponse>
     Object? portrait = null,
     Object? likes = null,
     Object? createdAt = null,
+    Object? visitId = null,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -97,6 +101,10 @@ class _$GalleryItemResponseCopyWithImpl<$Res, $Val extends GalleryItemResponse>
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
               as DateTime,
+      visitId: null == visitId
+          ? _value.visitId
+          : visitId // ignore: cast_nullable_to_non_nullable
+              as String,
     ) as $Val);
   }
 }
@@ -114,7 +122,8 @@ abstract class _$$GalleryItemResponseImplCopyWith<$Res>
       @JsonKey(name: "photos") List<Photo> photos,
       @JsonKey(name: "portrait") bool portrait,
       @JsonKey(name: "likes") Map<String, LikeDetail> likes,
-      @JsonKey(name: "createdAt") DateTime createdAt});
+      @JsonKey(name: "createdAt") DateTime createdAt,
+      @JsonKey(name: "visitId") String visitId});
 }
 
 /// @nodoc
@@ -135,6 +144,7 @@ class __$$GalleryItemResponseImplCopyWithImpl<$Res>
     Object? portrait = null,
     Object? likes = null,
     Object? createdAt = null,
+    Object? visitId = null,
   }) {
     return _then(_$GalleryItemResponseImpl(
       id: null == id
@@ -157,6 +167,10 @@ class __$$GalleryItemResponseImplCopyWithImpl<$Res>
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
               as DateTime,
+      visitId: null == visitId
+          ? _value.visitId
+          : visitId // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -169,7 +183,8 @@ class _$GalleryItemResponseImpl implements _GalleryItemResponse {
       @JsonKey(name: "photos") required final List<Photo> photos,
       @JsonKey(name: "portrait") required this.portrait,
       @JsonKey(name: "likes") required final Map<String, LikeDetail> likes,
-      @JsonKey(name: "createdAt") required this.createdAt})
+      @JsonKey(name: "createdAt") required this.createdAt,
+      @JsonKey(name: "visitId") required this.visitId})
       : _photos = photos,
         _likes = likes;
 
@@ -203,10 +218,13 @@ class _$GalleryItemResponseImpl implements _GalleryItemResponse {
   @override
   @JsonKey(name: "createdAt")
   final DateTime createdAt;
+  @override
+  @JsonKey(name: "visitId")
+  final String visitId;
 
   @override
   String toString() {
-    return 'GalleryItemResponse(id: $id, photos: $photos, portrait: $portrait, likes: $likes, createdAt: $createdAt)';
+    return 'GalleryItemResponse(id: $id, photos: $photos, portrait: $portrait, likes: $likes, createdAt: $createdAt, visitId: $visitId)';
   }
 
   @override
@@ -220,7 +238,8 @@ class _$GalleryItemResponseImpl implements _GalleryItemResponse {
                 other.portrait == portrait) &&
             const DeepCollectionEquality().equals(other._likes, _likes) &&
             (identical(other.createdAt, createdAt) ||
-                other.createdAt == createdAt));
+                other.createdAt == createdAt) &&
+            (identical(other.visitId, visitId) || other.visitId == visitId));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
@@ -231,7 +250,8 @@ class _$GalleryItemResponseImpl implements _GalleryItemResponse {
       const DeepCollectionEquality().hash(_photos),
       portrait,
       const DeepCollectionEquality().hash(_likes),
-      createdAt);
+      createdAt,
+      visitId);
 
   /// Create a copy of GalleryItemResponse
   /// with the given fields replaced by the non-null parameter values.
@@ -256,7 +276,8 @@ abstract class _GalleryItemResponse implements GalleryItemResponse {
           @JsonKey(name: "photos") required final List<Photo> photos,
           @JsonKey(name: "portrait") required final bool portrait,
           @JsonKey(name: "likes") required final Map<String, LikeDetail> likes,
-          @JsonKey(name: "createdAt") required final DateTime createdAt}) =
+          @JsonKey(name: "createdAt") required final DateTime createdAt,
+          @JsonKey(name: "visitId") required final String visitId}) =
       _$GalleryItemResponseImpl;
 
   factory _GalleryItemResponse.fromJson(Map<String, dynamic> json) =
@@ -277,6 +298,9 @@ abstract class _GalleryItemResponse implements GalleryItemResponse {
   @override
   @JsonKey(name: "createdAt")
   DateTime get createdAt;
+  @override
+  @JsonKey(name: "visitId")
+  String get visitId;
 
   /// Create a copy of GalleryItemResponse
   /// with the given fields replaced by the non-null parameter values.

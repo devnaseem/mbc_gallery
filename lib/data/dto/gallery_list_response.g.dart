@@ -18,6 +18,7 @@ _$GalleryItemResponseImpl _$$GalleryItemResponseImplFromJson(
         (k, e) => MapEntry(k, LikeDetail.fromJson(e as Map<String, dynamic>)),
       ),
       createdAt: DateTime.parse(json['createdAt'] as String),
+      visitId: json['visitId'] as String,
     );
 
 Map<String, dynamic> _$$GalleryItemResponseImplToJson(
@@ -28,6 +29,7 @@ Map<String, dynamic> _$$GalleryItemResponseImplToJson(
       'portrait': instance.portrait,
       'likes': instance.likes,
       'createdAt': instance.createdAt.toIso8601String(),
+      'visitId': instance.visitId,
     };
 
 _$PhotoImpl _$$PhotoImplFromJson(Map<String, dynamic> json) => _$PhotoImpl(

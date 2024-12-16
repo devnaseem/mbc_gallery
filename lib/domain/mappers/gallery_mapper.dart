@@ -17,7 +17,7 @@ class GalleryMapper {
     return GalleryItemModel(
       id: photo.id,
       createdAt: photo.createdAt,
-      visitId: "",
+      visitId: photo.visitId,
       photos: photo.photos
           .map((photoItem) => PhotoModel(
               url: photoItem.url,
