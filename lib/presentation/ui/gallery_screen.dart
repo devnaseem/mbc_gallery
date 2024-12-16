@@ -53,7 +53,6 @@ class _GalleryScreenState extends ConsumerState<GalleryScreen> {
 
   @override
   Widget build(BuildContext context) {
-
     final wellnessValue = ref
         .watch(galleryViewModelProvider.select((state) => state.galleryList));
 
@@ -75,9 +74,16 @@ class _GalleryScreenState extends ConsumerState<GalleryScreen> {
                   startDate: startDate!,
                   endDate: endDate!,
                   selectedDateFilter: selectedFilter,
-                  onApplyFilter: (DateFilter filter, DateTime startDate, DateTime endDate) {
-                      ref.read(galleryViewModelProvider.notifier)
-                         .updateGallerySettings(widget.systemId, filter, startDate, endDate,);
+                  onApplyFilter: (DateFilter filter, DateTime startDate,
+                      DateTime endDate) {
+                    ref
+                        .read(galleryViewModelProvider.notifier)
+                        .updateGallerySettings(
+                          widget.systemId,
+                          filter,
+                          startDate,
+                          endDate,
+                        );
                   },
                 );
               },
@@ -85,7 +91,8 @@ class _GalleryScreenState extends ConsumerState<GalleryScreen> {
     };
     return SafeArea(
       child: Scaffold(
-        backgroundColor: kIsWeb ? Colors.white : ColorConstants.primaryBrandColor,
+        backgroundColor:
+            kIsWeb ? Colors.white : ColorConstants.primaryBrandColor,
         appBar: kIsWeb
             ? NavBarWidget(
                 onFilterPressed: filterPressedListener,
@@ -99,10 +106,15 @@ class _GalleryScreenState extends ConsumerState<GalleryScreen> {
             startDate: startDate!,
             endDate: endDate!,
             selectedDateFilter: selectedFilter,
-            onApplyFilter: (DateFilter filter, DateTime startDate, DateTime endDate) {
+            onApplyFilter:
+                (DateFilter filter, DateTime startDate, DateTime endDate) {
               _panelController.close();
-              ref.read(galleryViewModelProvider.notifier)
-                  .updateGallerySettings(widget.systemId, filter, startDate, endDate,);
+              ref.read(galleryViewModelProvider.notifier).updateGallerySettings(
+                    widget.systemId,
+                    filter,
+                    startDate,
+                    endDate,
+                  );
             },
           ),
           minHeight: 0,
@@ -112,11 +124,14 @@ class _GalleryScreenState extends ConsumerState<GalleryScreen> {
               loading: () => const GalleryLoadingWidget(),
               data: (wellnessList) {
                 final galleryList = GalleryListWidget(
+                  systemId: widget.systemId,
                   galleryPhotosList: wellnessList,
                   scrollController: _scrollController,
                   onTap: (String imageUrl) {
-                    Navigator.push(context,
-                      MaterialPageRoute(builder: (_) =>
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (_) =>
                             FullScreenImageView(imagePath: imageUrl),
                       ),
                     );

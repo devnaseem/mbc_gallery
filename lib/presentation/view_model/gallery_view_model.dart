@@ -17,7 +17,7 @@ class GalleryViewModel extends _$GalleryViewModel {
   void getGalleryImages(String psId,
       {int page = 1, bool shouldLoadCustomDateRangePhotos = false}) async {
     if (state.isLoadingMore) return;
-    if (!state.shouldLoadMore) return; // No more pages to load
+    if (!state.shouldLoadMore && page != 1) return; // No more pages to load
 
     if (page == 1) {
       // Initial load
@@ -69,5 +69,14 @@ class GalleryViewModel extends _$GalleryViewModel {
         page: 1,
         shouldLoadCustomDateRangePhotos:
             state.selectedFilter == DateFilter.customDate);
+  }
+
+  void resetFilters(systemId) {
+    state = state.copyWith(
+      selectedFilter: DateFilter.allTime,
+      startDate: DateTime.now().subtract(const Duration(days: 365)),
+      endDate: DateTime.now(),
+    );
+    getGalleryImages(systemId, page: 1, shouldLoadCustomDateRangePhotos: false);
   }
 }

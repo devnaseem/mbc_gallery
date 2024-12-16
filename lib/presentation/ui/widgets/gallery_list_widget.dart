@@ -12,6 +12,7 @@ import 'package:mbc_gallery/presentation/view_model/gallery_view_model.dart';
 
 class GalleryListWidget extends ConsumerWidget {
   final List<GalleryItemModel> galleryPhotosList;
+  final String systemId;
   final Function(String) onTap;
   final ScrollController scrollController;
 
@@ -19,7 +20,8 @@ class GalleryListWidget extends ConsumerWidget {
       {super.key,
       required this.galleryPhotosList,
       required this.onTap,
-      required this.scrollController});
+      required this.scrollController,
+      required this.systemId});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -53,9 +55,10 @@ class GalleryListWidget extends ConsumerWidget {
 
           // Gallery Items Slivers
           if (galleryPhotosList.isEmpty)
-            const SliverToBoxAdapter(
+            SliverToBoxAdapter(
                 child: EmptyGalleryWidget(
               isDateRangeEmpty: true,
+              systemId: systemId,
             ))
           else
             ...buildGalleryItems(context),
@@ -313,12 +316,14 @@ class _HoverableCardState extends State<HoverableCard> {
   }
 }
 
-class EmptyGalleryWidget extends StatelessWidget {
+class EmptyGalleryWidget extends ConsumerWidget {
   final bool isDateRangeEmpty;
-  const EmptyGalleryWidget({super.key, required this.isDateRangeEmpty});
+  final String systemId;
+  const EmptyGalleryWidget(
+      {super.key, required this.isDateRangeEmpty, required this.systemId});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 56),
       child: Column(
@@ -353,7 +358,11 @@ class EmptyGalleryWidget extends StatelessWidget {
                 color: Colors.white,
               ),
             ),
-            onPressed: () {},
+            onPressed: () {
+              ref
+                  .read(galleryViewModelProvider.notifier)
+                  .resetFilters(systemId);
+            },
             color: ColorConstants.primaryBrandColor,
           )
         ],

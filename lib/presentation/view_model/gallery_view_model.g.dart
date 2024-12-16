@@ -6,7 +6,7 @@ part of 'gallery_view_model.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$galleryViewModelHash() => r'02e42bc4cbd109b7987f4c17052c477b2a00ce0c';
+String _$galleryViewModelHash() => r'59fb3318f38e7e186fbecdbcd8ca269c184bf197';
 
 /// See also [GalleryViewModel].
 @ProviderFor(GalleryViewModel)
