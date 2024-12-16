@@ -62,7 +62,8 @@ class DateFilterSelectionWidget extends StatelessWidget {
                 Expanded(
                   child: GestureDetector(
                     onTap: () async {
-                      final picked = await _selectDate(context, toDate, firstDate: fromDate);
+                      final picked = await _selectDate(context, toDate,
+                          firstDate: fromDate);
                       if (picked != null) onToDateChanged(picked);
                     },
                     child: DateBox(date: toDate, label: 'To'),
@@ -91,7 +92,7 @@ class DateFilterSelectionWidget extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
               SvgPicture.asset(
-                'assets/svg/retry.svg',
+                'packages/mbc_gallery/package_assets/retry.svg',
                 width: 20.0,
                 height: 20.0,
               ),
@@ -150,8 +151,8 @@ class DateFilterSelectionWidget extends StatelessWidget {
     );
   }
 
-  Future<DateTime?> _selectDate(
-      BuildContext context, DateTime initialDate, {DateTime? firstDate}) async {
+  Future<DateTime?> _selectDate(BuildContext context, DateTime initialDate,
+      {DateTime? firstDate}) async {
     final DateTime? pickedDate = await showDatePicker(
       context: context,
       initialDate: initialDate,

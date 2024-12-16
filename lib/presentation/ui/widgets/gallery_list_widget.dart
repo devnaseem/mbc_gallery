@@ -327,7 +327,9 @@ class EmptyGalleryWidget extends StatelessWidget {
           SizedBox(height: 100),
           Container(
             color: ColorConstants.inverseTextColor,
-            child: Image.asset("assets/my_path/empty_box.png", scale: .8),
+            child: Image.asset(
+                "packages/mbc_gallery/package_assets/empty_box.png",
+                scale: .8),
           ),
           Text(
             isDateRangeEmpty

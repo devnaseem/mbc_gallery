@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:photo_view/photo_view.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:path_provider/path_provider.dart';
@@ -135,10 +136,15 @@ class _FullScreenImageViewState extends State<FullScreenImageView> {
                                 );
                               }
                             },
-                            icon: Icon(
-                              Icons.share,
-                              color: Colors.white,
-                              size: 19,
+                            // icon: Icon(
+                            //   Icons.share,
+                            //   color: Colors.white,
+                            //   size: 19,
+                            // ),
+                            icon: SvgPicture.asset(
+                              'packages/mbc_gallery/package_assets/share_icon_two.svg',
+                              width: 19.0,
+                              height: 19.0,
                             ),
                             label: Text(
                               'SHARE',

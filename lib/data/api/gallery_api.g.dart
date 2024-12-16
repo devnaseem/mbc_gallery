@@ -13,9 +13,7 @@ class _GalleryApi implements GalleryApi {
     this._dio, {
     this.baseUrl,
     this.errorLogger,
-  }) {
-    baseUrl ??= 'https://nascode-338705814149.asia-south2.run.app/api/v1/';
-  }
+  });
 
   final Dio _dio;
 

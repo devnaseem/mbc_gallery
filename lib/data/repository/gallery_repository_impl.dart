@@ -26,7 +26,7 @@ class GalleryRepositoryImpl
   @override
   Future<List<GalleryItemModel>> getGalleryImages(String psId, int page) async {
     final galleryListResponse = await callApi<List<GalleryItemResponse>>(
-      () => _galleryApiService.getGalleryMockData(page, psId),
+      () => _galleryApiService.getGalleryPhotos(page, psId),
     );
 
     final galleryList = compute(
