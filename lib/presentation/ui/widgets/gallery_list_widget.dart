@@ -197,8 +197,8 @@ class GalleryListWidget extends ConsumerWidget {
           sliver: SliverGrid(
             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: getNumberOfColumns(context),
-              mainAxisSpacing: 4,
-              crossAxisSpacing: 4,
+              mainAxisSpacing: 2,
+              crossAxisSpacing: 2,
             ),
             delegate: SliverChildBuilderDelegate(
               (context, index) {
@@ -228,14 +228,18 @@ class GalleryListWidget extends ConsumerWidget {
   }
 
   double getHeight(BuildContext context) {
-    if (isDesktopScreen(context)) {
-      return 490;
-    } else if (isLargeScreen(context)) {
-      return 450;
-    } else if (isMediumScreen(context)) {
-      return 320;
+    double width = MediaQuery.of(context).size.width;
+    print("width $width");
+    if (width >= 1200) {
+      return width / 3.05;
+    } else if (width >= 992) {
+      return width / 2.5;
+    } else if (width >= 768) {
+      return width / 2.8;
+    } else if (width >= 530) {
+      return width / 2.95;
     } else {
-      return 165;
+      return width / 3.05;
     }
   }
 
