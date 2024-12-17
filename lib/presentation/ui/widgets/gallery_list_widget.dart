@@ -229,16 +229,36 @@ class GalleryListWidget extends ConsumerWidget {
 
   double getHeight(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
-    print("width $width");
-    if (width >= 1200) {
+
+    if (width >= 1920) {
+      print("width >= 1920");
+      return width / 3.2;
+    } else if (width >= 1600) {
+      print("width >= 1600");
+      return width / 3.15;
+    } else if (width >= 1366) {
+      print("width >= 1366");
+      return width / 3.1;
+    } else if (width >= 1200) {
+      print("width >= 1200");
       return width / 3.05;
     } else if (width >= 992) {
+      print("width >= 992");
       return width / 2.5;
     } else if (width >= 768) {
-      return width / 2.8;
+      print("width >= 768");
+      return width / 2.65;
+    } else if (width >= 600) {
+      print("width >= 600");
+      return width / 2.78;
     } else if (width >= 530) {
+      print("width >= 530");
       return width / 2.95;
+    } else if (width >= 400) {
+      print("width >= 400");
+      return width / 3.05;
     } else {
+      print("width < 400");
       return width / 3.05;
     }
   }
