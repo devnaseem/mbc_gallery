@@ -24,7 +24,6 @@ class GalleryItemResponse with _$GalleryItemResponse {
     @JsonKey(name: "likes") required Map<String, LikeDetail> likes,
     @JsonKey(name: "createdAt") required DateTime createdAt,
     @JsonKey(name: "visitId") required String visitId,
-
   }) = _GalleryItemResponse;
 
   factory GalleryItemResponse.fromJson(Map<String, dynamic> json) =>
