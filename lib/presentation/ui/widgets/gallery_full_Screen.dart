@@ -88,11 +88,11 @@ class _FullScreenImageViewState extends State<FullScreenImageView> {
                               setState(() {
                                 _hasLiked = !_hasLiked;
                               });
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                SnackBar(
-                                    content: Text(
-                                        _hasLiked ? 'Liked!' : 'Unliked!')),
-                              );
+                              // ScaffoldMessenger.of(context).showSnackBar(
+                              //   SnackBar(
+                              //       content: Text(
+                              //           _hasLiked ? 'Liked!' : 'Unliked!')),
+                              // );
                             },
                             icon: Icon(
                               _hasLiked

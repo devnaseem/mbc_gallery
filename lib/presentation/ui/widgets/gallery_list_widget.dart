@@ -197,8 +197,8 @@ class GalleryListWidget extends ConsumerWidget {
           sliver: SliverGrid(
             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: getNumberOfColumns(context),
-              mainAxisSpacing: 2,
-              crossAxisSpacing: 2,
+              mainAxisSpacing: 4,
+              crossAxisSpacing: 4,
             ),
             delegate: SliverChildBuilderDelegate(
               (context, index) {
