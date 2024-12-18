@@ -2,7 +2,9 @@ part of mbc_gallery;
 
 class GalleryScreen extends ConsumerStatefulWidget {
   final String systemId;
-  const GalleryScreen({super.key, required this.systemId});
+  final String cognitoId;
+  const GalleryScreen(
+      {super.key, required this.systemId, required this.cognitoId});
 
   @override
   ConsumerState<GalleryScreen> createState() => _GalleryScreenState();
@@ -21,7 +23,10 @@ class _GalleryScreenState extends ConsumerState<GalleryScreen> {
       (_) {
         ref
             .read(galleryViewModelProvider.notifier)
-            .getGalleryImages(widget.systemId);
+            .updatePSIdandCognitoId(widget.systemId, widget.cognitoId);
+        ref.read(galleryViewModelProvider.notifier).getGalleryImages(
+              widget.systemId,
+            );
       },
     );
   }
@@ -55,7 +60,7 @@ class _GalleryScreenState extends ConsumerState<GalleryScreen> {
   Widget build(BuildContext context) {
     final wellnessValue = ref
         .watch(galleryViewModelProvider.select((state) => state.galleryList));
-
+    wellnessValue.whenData((value) => print("value: $value"));
     final startDate =
         ref.watch(galleryViewModelProvider.select((state) => state.startDate));
     final endDate =
@@ -127,12 +132,12 @@ class _GalleryScreenState extends ConsumerState<GalleryScreen> {
                   systemId: widget.systemId,
                   galleryPhotosList: wellnessList,
                   scrollController: _scrollController,
-                  onTap: (String imageUrl) {
+                  onTap: (String imageUrl, GalleryItemModel galleryItem) {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (_) =>
-                            FullScreenImageView(imagePath: imageUrl),
+                        builder: (_) => FullScreenImageView(
+                            imagePath: imageUrl, galleryItem: galleryItem),
                       ),
                     );
                   },

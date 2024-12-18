@@ -24,6 +24,8 @@ mixin _$GalleryState {
   DateFilter get selectedFilter => throw _privateConstructorUsedError;
   DateTime? get startDate => throw _privateConstructorUsedError;
   DateTime? get endDate => throw _privateConstructorUsedError;
+  String get psId => throw _privateConstructorUsedError;
+  String get cognitoId => throw _privateConstructorUsedError;
 
   /// Create a copy of GalleryState
   /// with the given fields replaced by the non-null parameter values.
@@ -45,7 +47,9 @@ abstract class $GalleryStateCopyWith<$Res> {
       bool shouldLoadMore,
       DateFilter selectedFilter,
       DateTime? startDate,
-      DateTime? endDate});
+      DateTime? endDate,
+      String psId,
+      String cognitoId});
 }
 
 /// @nodoc
@@ -70,6 +74,8 @@ class _$GalleryStateCopyWithImpl<$Res, $Val extends GalleryState>
     Object? selectedFilter = null,
     Object? startDate = freezed,
     Object? endDate = freezed,
+    Object? psId = null,
+    Object? cognitoId = null,
   }) {
     return _then(_value.copyWith(
       galleryList: null == galleryList
@@ -100,6 +106,14 @@ class _$GalleryStateCopyWithImpl<$Res, $Val extends GalleryState>
           ? _value.endDate
           : endDate // ignore: cast_nullable_to_non_nullable
               as DateTime?,
+      psId: null == psId
+          ? _value.psId
+          : psId // ignore: cast_nullable_to_non_nullable
+              as String,
+      cognitoId: null == cognitoId
+          ? _value.cognitoId
+          : cognitoId // ignore: cast_nullable_to_non_nullable
+              as String,
     ) as $Val);
   }
 }
@@ -119,7 +133,9 @@ abstract class _$$GalleryStateImplCopyWith<$Res>
       bool shouldLoadMore,
       DateFilter selectedFilter,
       DateTime? startDate,
-      DateTime? endDate});
+      DateTime? endDate,
+      String psId,
+      String cognitoId});
 }
 
 /// @nodoc
@@ -142,6 +158,8 @@ class __$$GalleryStateImplCopyWithImpl<$Res>
     Object? selectedFilter = null,
     Object? startDate = freezed,
     Object? endDate = freezed,
+    Object? psId = null,
+    Object? cognitoId = null,
   }) {
     return _then(_$GalleryStateImpl(
       galleryList: null == galleryList
@@ -172,6 +190,14 @@ class __$$GalleryStateImplCopyWithImpl<$Res>
           ? _value.endDate
           : endDate // ignore: cast_nullable_to_non_nullable
               as DateTime?,
+      psId: null == psId
+          ? _value.psId
+          : psId // ignore: cast_nullable_to_non_nullable
+              as String,
+      cognitoId: null == cognitoId
+          ? _value.cognitoId
+          : cognitoId // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -186,7 +212,9 @@ class _$GalleryStateImpl implements _GalleryState {
       this.shouldLoadMore = true,
       this.selectedFilter = DateFilter.allTime,
       this.startDate,
-      this.endDate});
+      this.endDate,
+      this.psId = "",
+      this.cognitoId = ""});
 
   @override
   @JsonKey()
@@ -207,10 +235,16 @@ class _$GalleryStateImpl implements _GalleryState {
   final DateTime? startDate;
   @override
   final DateTime? endDate;
+  @override
+  @JsonKey()
+  final String psId;
+  @override
+  @JsonKey()
+  final String cognitoId;
 
   @override
   String toString() {
-    return 'GalleryState(galleryList: $galleryList, currentPage: $currentPage, isLoadingMore: $isLoadingMore, shouldLoadMore: $shouldLoadMore, selectedFilter: $selectedFilter, startDate: $startDate, endDate: $endDate)';
+    return 'GalleryState(galleryList: $galleryList, currentPage: $currentPage, isLoadingMore: $isLoadingMore, shouldLoadMore: $shouldLoadMore, selectedFilter: $selectedFilter, startDate: $startDate, endDate: $endDate, psId: $psId, cognitoId: $cognitoId)';
   }
 
   @override
@@ -230,12 +264,24 @@ class _$GalleryStateImpl implements _GalleryState {
                 other.selectedFilter == selectedFilter) &&
             (identical(other.startDate, startDate) ||
                 other.startDate == startDate) &&
-            (identical(other.endDate, endDate) || other.endDate == endDate));
+            (identical(other.endDate, endDate) || other.endDate == endDate) &&
+            (identical(other.psId, psId) || other.psId == psId) &&
+            (identical(other.cognitoId, cognitoId) ||
+                other.cognitoId == cognitoId));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, galleryList, currentPage,
-      isLoadingMore, shouldLoadMore, selectedFilter, startDate, endDate);
+  int get hashCode => Object.hash(
+      runtimeType,
+      galleryList,
+      currentPage,
+      isLoadingMore,
+      shouldLoadMore,
+      selectedFilter,
+      startDate,
+      endDate,
+      psId,
+      cognitoId);
 
   /// Create a copy of GalleryState
   /// with the given fields replaced by the non-null parameter values.
@@ -254,7 +300,9 @@ abstract class _GalleryState implements GalleryState {
       final bool shouldLoadMore,
       final DateFilter selectedFilter,
       final DateTime? startDate,
-      final DateTime? endDate}) = _$GalleryStateImpl;
+      final DateTime? endDate,
+      final String psId,
+      final String cognitoId}) = _$GalleryStateImpl;
 
   @override
   AsyncValue<List<GalleryItemModel>> get galleryList;
@@ -270,6 +318,10 @@ abstract class _GalleryState implements GalleryState {
   DateTime? get startDate;
   @override
   DateTime? get endDate;
+  @override
+  String get psId;
+  @override
+  String get cognitoId;
 
   /// Create a copy of GalleryState
   /// with the given fields replaced by the non-null parameter values.

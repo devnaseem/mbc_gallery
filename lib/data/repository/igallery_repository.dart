@@ -4,4 +4,5 @@ abstract interface class IGalleryRepository {
   Future<List<GalleryItemModel>> getGalleryImages(String psId, int page);
   Future<List<GalleryItemModel>> getGalleryImagesForDateRange(
       String psId, int page, String startDate, String endDate);
+  Future<void> updatePhotoStatus(String psId, String photoId, String action);
 }

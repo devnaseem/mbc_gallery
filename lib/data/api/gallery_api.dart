@@ -33,4 +33,8 @@ abstract class GalleryApi {
       @Path('psId') String psId,
       @Path('startDate') String startDate,
       @Path('endDate') String endDate);
+
+  @POST('/wellness-photos/{psId}/photos/{photoId}/{action}')
+  Future<void> updatePhotoStatus(@Path('psId') String psId,
+      @Path('photoId') String photoId, @Path('action') String action);
 }

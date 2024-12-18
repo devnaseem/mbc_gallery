@@ -14,7 +14,7 @@ import 'package:mbc_gallery/presentation/view_model/gallery_view_model.dart';
 class GalleryListWidget extends ConsumerWidget {
   final List<GalleryItemModel> galleryPhotosList;
   final String systemId;
-  final Function(String) onTap;
+  final Function(String, GalleryItemModel) onTap;
   final ScrollController scrollController;
 
   const GalleryListWidget(
@@ -37,6 +37,8 @@ class GalleryListWidget extends ConsumerWidget {
     final selectedFilter = ref.watch(
         galleryViewModelProvider.select((state) => state.selectedFilter));
 
+    final userCognitoId =
+        ref.read(galleryViewModelProvider.select((state) => state.cognitoId));
     // print("galleryPhotosList ${galleryPhotosList.length}");
 
     final child = Container(
@@ -99,7 +101,7 @@ class GalleryListWidget extends ConsumerWidget {
               systemId: systemId,
             ))
           else
-            ...buildGalleryItems(context),
+            ...buildGalleryItems(context, userCognitoId),
 
           if (isLoadingMore)
             const SliverToBoxAdapter(
@@ -145,7 +147,7 @@ class GalleryListWidget extends ConsumerWidget {
       return "Desktop";
   }
 
-  List<Widget> buildGalleryItems(BuildContext context) {
+  List<Widget> buildGalleryItems(BuildContext context, String userCognitoId) {
     List<Widget> slivers = [];
 
     final photosByDate = <DateTime, List<GalleryItemModel>>{};
@@ -203,15 +205,18 @@ class GalleryListWidget extends ConsumerWidget {
             delegate: SliverChildBuilderDelegate(
               (context, index) {
                 final photoItem = datePhotos[index];
+                final bool isLiked = photoItem.likes.containsKey(userCognitoId);
                 final itemHeight = getHeight(context); // Your custom function
+                print("photoitem ${photoItem.likes} and isLiked $isLiked");
 
                 return SizedBox(
                   height: itemHeight + (isDesktopScreen(context) ? 150 : 50),
                   child: HoverableCard(
                     galleryItem: photoItem,
-                    onTap: onTap,
+                    onTap: (url) => onTap(url, photoItem),
                     height: itemHeight,
-                    isLiked: index % 2 == 0, // Example logic for isLiked
+                    isLiked: isLiked,
+                    systemId: systemId,
                   ),
                 );
               },
@@ -268,11 +273,12 @@ class GalleryListWidget extends ConsumerWidget {
   }
 }
 
-class HoverableCard extends StatefulWidget {
+class HoverableCard extends ConsumerStatefulWidget {
   final GalleryItemModel galleryItem;
   final Function(String) onTap;
   final double height;
   final bool isLiked;
+  final String systemId;
 
   const HoverableCard({
     super.key,
@@ -280,26 +286,27 @@ class HoverableCard extends StatefulWidget {
     required this.onTap,
     required this.height,
     required this.isLiked,
+    required this.systemId,
   });
 
   @override
   _HoverableCardState createState() => _HoverableCardState();
 }
 
-class _HoverableCardState extends State<HoverableCard> {
+class _HoverableCardState extends ConsumerState<HoverableCard> {
   bool isHovered = false;
   bool isLiked = false;
 
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance.addPostFrameCallback(
-      (_) {
-        if (mounted) {
-          isLiked = widget.isLiked;
-        }
-      },
-    );
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      print("isLiked ${widget.isLiked}");
+      setState(() {
+        isLiked = widget.isLiked;
+      });
+    });
   }
 
   @override
@@ -358,6 +365,13 @@ class _HoverableCardState extends State<HoverableCard> {
                               setState(() {
                                 isLiked = !isLiked;
                               });
+                              ref
+                                  .read(galleryViewModelProvider.notifier)
+                                  .updatePhotoStatus(
+                                    widget.systemId,
+                                    widget.galleryItem.id,
+                                    isLiked ? 'like' : 'unlike',
+                                  );
                             },
                             child: Icon(
                                 isLiked

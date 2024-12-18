@@ -68,6 +68,7 @@ class _GalleryRootAppWebState extends ConsumerState<GalleryRootAppWeb> {
           path: '/',
           builder: (context, state) => GalleryScreen(
             systemId: widget.systemId ?? '0000662212',
+            cognitoId: "e21ae358-31de-40fe-a64c-7821f67bd461",
           ),
         ),
       ],

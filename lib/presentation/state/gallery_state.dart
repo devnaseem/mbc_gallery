@@ -14,6 +14,8 @@ abstract class GalleryState with _$GalleryState {
     @Default(DateFilter.allTime) DateFilter selectedFilter,
     DateTime? startDate,
     DateTime? endDate,
+    @Default("") String psId,
+    @Default("") String cognitoId,
   }) = _GalleryState;
 
   factory GalleryState.initial() => GalleryState(

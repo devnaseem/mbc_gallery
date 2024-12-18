@@ -50,4 +50,11 @@ class GalleryRepositoryImpl
     );
     return galleryList;
   }
+
+  @override
+  Future<void> updatePhotoStatus(String psId, String photoId, String action) {
+    return callApi(
+      () => _galleryApiService.updatePhotoStatus(psId, photoId, action),
+    );
+  }
 }

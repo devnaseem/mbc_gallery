@@ -1,6 +1,7 @@
 import 'package:mbc_gallery/domain/model/gallery_item_model.dart';
 import 'package:mbc_gallery/domain/usecase/get_gallery_images_date_range_use_case.dart';
 import 'package:mbc_gallery/domain/usecase/get_gallery_images_use_case.dart';
+import 'package:mbc_gallery/domain/usecase/update_photo_status_use_case.dart';
 import 'package:mbc_gallery/presentation/state/gallery_state.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:intl/intl.dart';
@@ -78,5 +79,46 @@ class GalleryViewModel extends _$GalleryViewModel {
       endDate: DateTime.now(),
     );
     getGalleryImages(systemId, page: 1, shouldLoadCustomDateRangePhotos: false);
+  }
+
+  void updatePhotoStatus(String psId, String photoId, String action) async {
+    final result = await ref
+        .read(updatePhotoStatusUseCaseProvider)
+        .call(psId, photoId, action);
+    result.when((_) {
+      final updatedList = state.galleryList.value?.map((photo) {
+        if (photo.id == photoId) {
+          final updatedLikes = Map<String, LikeDetailModel>.from(photo.likes);
+          if (action == 'like') {
+            updatedLikes.putIfAbsent(
+              state.cognitoId,
+              () => LikeDetailModel(
+                name: 'You',
+                likeAt: DateTime.now(),
+              ),
+            );
+          } else if (action == 'unlike') {
+            updatedLikes.remove(state.cognitoId);
+          }
+          return photo.copyWith(likes: updatedLikes);
+        }
+        return photo;
+      }).toList();
+
+      state = state.copyWith(
+        galleryList: AsyncValue.data(updatedList!),
+      );
+    }, (error) {
+      state = state.copyWith(
+        galleryList: AsyncError(error, error.stackTrace),
+      );
+    });
+  }
+
+  void updatePSIdandCognitoId(String systemId, String cognitoId) {
+    state = state.copyWith(
+      psId: systemId,
+      cognitoId: cognitoId,
+    );
   }
 }

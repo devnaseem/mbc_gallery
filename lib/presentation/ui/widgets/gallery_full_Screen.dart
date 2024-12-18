@@ -3,28 +3,42 @@ import 'dart:io';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:mbc_gallery/domain/model/gallery_item_model.dart';
+import 'package:mbc_gallery/presentation/view_model/gallery_view_model.dart';
 import 'package:photo_view/photo_view.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:http/http.dart' as http;
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class FullScreenImageView extends StatefulWidget {
+class FullScreenImageView extends ConsumerStatefulWidget {
   final String imagePath;
+  final GalleryItemModel galleryItem;
 
-  const FullScreenImageView({Key? key, required this.imagePath})
-      : super(key: key);
+  const FullScreenImageView(
+      {Key? key, required this.imagePath, required this.galleryItem});
 
   @override
   _FullScreenImageViewState createState() => _FullScreenImageViewState();
 }
 
-class _FullScreenImageViewState extends State<FullScreenImageView> {
+class _FullScreenImageViewState extends ConsumerState<FullScreenImageView> {
   bool _hasLiked = false;
 
   @override
+  void initState() {
+    final userCognitoId =
+        ref.read(galleryViewModelProvider.select((state) => state.cognitoId));
+    _hasLiked = widget.galleryItem.likes.containsKey(userCognitoId);
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    final systemId =
+        ref.read(galleryViewModelProvider.select((state) => state.psId));
     return SafeArea(
       child: Scaffold(
         backgroundColor: Colors.black,
@@ -88,11 +102,13 @@ class _FullScreenImageViewState extends State<FullScreenImageView> {
                               setState(() {
                                 _hasLiked = !_hasLiked;
                               });
-                              // ScaffoldMessenger.of(context).showSnackBar(
-                              //   SnackBar(
-                              //       content: Text(
-                              //           _hasLiked ? 'Liked!' : 'Unliked!')),
-                              // );
+                              ref
+                                  .read(galleryViewModelProvider.notifier)
+                                  .updatePhotoStatus(
+                                    systemId,
+                                    widget.galleryItem.id,
+                                    _hasLiked ? 'like' : 'unlike',
+                                  );
                             },
                             icon: Icon(
                               _hasLiked
