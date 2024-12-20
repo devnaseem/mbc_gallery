@@ -25,13 +25,13 @@ class FullScreenImageView extends ConsumerStatefulWidget {
 }
 
 class _FullScreenImageViewState extends ConsumerState<FullScreenImageView> {
-  bool _hasLiked = false;
+  bool isLiked = false;
 
   @override
   void initState() {
     final userCognitoId =
         ref.read(galleryViewModelProvider.select((state) => state.cognitoId));
-    _hasLiked = widget.galleryItem.likes.containsKey(userCognitoId);
+    isLiked = widget.galleryItem.likes.containsKey(userCognitoId);
     super.initState();
   }
 
@@ -100,27 +100,25 @@ class _FullScreenImageViewState extends ConsumerState<FullScreenImageView> {
                           child: TextButton.icon(
                             onPressed: () {
                               setState(() {
-                                _hasLiked = !_hasLiked;
+                                isLiked = !isLiked;
                               });
                               ref
                                   .read(galleryViewModelProvider.notifier)
                                   .updatePhotoStatus(
                                     systemId,
                                     widget.galleryItem.id,
-                                    _hasLiked ? 'like' : 'unlike',
+                                    isLiked ? 'like' : 'unlike',
                                   );
                             },
                             icon: Icon(
-                              _hasLiked
-                                  ? Icons.favorite
-                                  : Icons.favorite_outline,
+                              isLiked ? Icons.favorite : Icons.favorite_outline,
                               color: Colors.white,
                               size: 19,
                             ),
                             label: Container(
                               width: 50,
                               child: Text(
-                                _hasLiked ? 'LIKED' : 'LIKE',
+                                isLiked ? 'LIKED' : 'LIKE',
                                 style: GoogleFonts.openSans(
                                   color: Colors.white,
                                   fontSize: 14,

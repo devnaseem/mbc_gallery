@@ -205,9 +205,9 @@ class GalleryListWidget extends ConsumerWidget {
             delegate: SliverChildBuilderDelegate(
               (context, index) {
                 final photoItem = datePhotos[index];
-                final bool isLiked = photoItem.likes.containsKey(userCognitoId);
+
                 final itemHeight = getHeight(context); // Your custom function
-                print("photoitem ${photoItem.likes} and isLiked $isLiked");
+                // print("photoitem ${photoItem.likes} and isLiked $isLiked");
 
                 return SizedBox(
                   height: itemHeight + (isDesktopScreen(context) ? 150 : 50),
@@ -215,7 +215,7 @@ class GalleryListWidget extends ConsumerWidget {
                     galleryItem: photoItem,
                     onTap: (url) => onTap(url, photoItem),
                     height: itemHeight,
-                    isLiked: isLiked,
+                    // isLiked: isLiked,
                     systemId: systemId,
                   ),
                 );
@@ -277,7 +277,7 @@ class HoverableCard extends ConsumerStatefulWidget {
   final GalleryItemModel galleryItem;
   final Function(String) onTap;
   final double height;
-  final bool isLiked;
+  // final bool isLiked;
   final String systemId;
 
   const HoverableCard({
@@ -285,7 +285,7 @@ class HoverableCard extends ConsumerStatefulWidget {
     required this.galleryItem,
     required this.onTap,
     required this.height,
-    required this.isLiked,
+    // required this.isLiked,
     required this.systemId,
   });
 
@@ -300,17 +300,13 @@ class _HoverableCardState extends ConsumerState<HoverableCard> {
   @override
   void initState() {
     super.initState();
-
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      print("isLiked ${widget.isLiked}");
-      setState(() {
-        isLiked = widget.isLiked;
-      });
-    });
   }
 
   @override
   Widget build(BuildContext context) {
+    final userCognitoId =
+        ref.read(galleryViewModelProvider.select((state) => state.cognitoId));
+    isLiked = widget.galleryItem.likes.containsKey(userCognitoId);
     return SizedBox(
       height: widget.height + (isDesktopScreen(context) ? 150 : 50),
       child: MouseRegion(
