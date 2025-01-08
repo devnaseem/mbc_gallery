@@ -1,7 +1,9 @@
 import 'dart:io';
 
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:mbc_gallery/domain/model/gallery_item_model.dart';
 import 'package:mbc_gallery/presentation/view_model/gallery_view_model.dart';
@@ -138,17 +140,19 @@ class _FullScreenImageViewState extends ConsumerState<FullScreenImageView> {
                         Expanded(
                           child: TextButton.icon(
                             onPressed: () async {
-                              try {
-                                final file =
-                                    await _downloadImage(widget.imagePath);
-                                await Share.shareXFiles([XFile(file.path)],
-                                    text: 'Check out this photo!');
-                              } catch (e) {
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  SnackBar(
-                                      content: Text('Error sharing image: $e')),
-                                );
-                              }
+                              // try {
+                              final file = await saveNetworkImageToStorage(
+                                  widget.imagePath);
+                              // await _downloadImage(widget.imagePath);
+                              //   await Share.shareXFiles([XFile(file.path)],
+                              //       text: 'Check out this photo!');
+                              // } catch (e) {
+                              //   ScaffoldMessenger.of(context).showSnackBar(
+                              //     SnackBar(
+                              //         content: Text('Error sharing image: $e')),
+                              //   );
+                              // }
+                              shareFile(file);
                             },
                             // icon: Icon(
                             //   Icons.share,
@@ -184,13 +188,48 @@ class _FullScreenImageViewState extends ConsumerState<FullScreenImageView> {
     );
   }
 
-  Future<File> _downloadImage(String url) async {
-    final response = await http.get(Uri.parse(url));
-    final documentDirectory = await getTemporaryDirectory();
-    final filePath = '${documentDirectory.path}/${url.split('/').last}';
+  // Future<File> _downloadImage(String url) async {
+  //   final response = await http.get(Uri.parse(url));
+  //   final documentDirectory = await getTemporaryDirectory();
+  //   final filePath = '${documentDirectory.path}/${url.split('/').last}';
 
-    final file = File(filePath);
-    await file.writeAsBytes(response.bodyBytes);
-    return file;
+  //   final file = File(filePath);
+  //   await file.writeAsBytes(response.bodyBytes);
+  //   return file;
+  // }
+  /// Share file
+  Future<void> shareFile(String filePath) async {
+    try {
+      final actualFile = XFile(filePath);
+      await Share.shareXFiles([actualFile]);
+    } catch (e) {
+      print('Error sharing file: $e');
+    }
+  }
+
+  /// Save network image to storage
+  Future<String> saveNetworkImageToStorage(String imageUrl,
+      {String? filename}) async {
+    Dio dio = Dio();
+
+    // Fetch the image from the network
+    Response<List<int>> response = await dio.get<List<int>>(
+      imageUrl,
+      options: Options(responseType: ResponseType.bytes),
+    );
+
+    // Get a reference to the documents directory
+    final directory = await getApplicationDocumentsDirectory();
+
+    // Use the provided filename or generate a new one
+    filename ??= imageUrl.split('/').last;
+
+    // Create a file path in the documents directory
+    final file = File('${directory.path}/$filename');
+
+    // Write the bytes as a file
+    await file.writeAsBytes(response.data!);
+
+    return file.path;
   }
 }
